@@ -1,245 +1,185 @@
-# 🤖 Agente AIOS — Sistema de Orquestração de Agentes IA
+# 🤖 AI Agent OS — Sistema de Orquestração Inteligente de Agentes
 
-Sistema completo de orquestração de agentes IA com memória centralizada, integração com Claude API, e arquitetura modular escalável.
-
----
-
-## 🎯 O Que É AIOS?
-
-**AIOS** = **AI Orchestration System** — Uma plataforma que orquestra múltiplos agentes especializados para resolver tarefas complexas de forma colaborativa.
-
-```
-Seu Prompt
-    ↓
-Router (direciona para agentes corretos)
-    ↓
-├─ @dev (implementação de código)
-├─ @qa (testes e qualidade)
-├─ @architect (design de sistema)
-├─ @pm (product management)
-├─ @po (product owner)
-├─ @sm (scrum master)
-├─ @analyst (pesquisa)
-├─ @data-engineer (banco de dados)
-├─ @ux-design-expert (UX/UI)
-└─ @devops (CI/CD, git push)
-    ↓
-Resultado
-```
+Um **sistema operacional de IA** completo que orquestra múltiplos agentes para resolução de tarefas complexas com planning automático, RAG, tools dinâmicas, raciocínio avançado, auto-melhoria contínua e observabilidade enterprise.
 
 ---
 
-## ✨ Capacidades Principais
+## 🎯 O Que É
 
-### 🧠 **10 Agentes Especializados**
-
-| Agente | Persona | Especialidade |
-|--------|---------|---------------|
-| **@dev** | Dex | Implementação de código, desenvolvimento |
-| **@qa** | Quinn | Testes, qualidade, QA gate |
-| **@architect** | Aria | Arquitetura de sistema, design técnico |
-| **@pm** | Morgan | Product management, estratégia |
-| **@po** | Pax | Product owner, stories, epics |
-| **@sm** | River | Scrum master, planejamento |
-| **@analyst** | Alex | Pesquisa, análise, investigação |
-| **@data-engineer** | Dara | Banco de dados, schema design |
-| **@ux-design-expert** | Uma | UX/UI design, experiência do usuário |
-| **@devops** | Gage | CI/CD, git operations (EXCLUSIVO) |
-
-### 🛠️ **1534+ Skills Integradas**
-
-Ferramentas especializadas ativadas com `/skill-name`:
+**AI Agent OS** é uma plataforma que implementa um ciclo completo:
 
 ```
-/deep-research            → Pesquisa profunda
-/code-reviewer            → Revisão de código
-/security-audit           → Auditoria de segurança
-/database-designer        → Design de schema
-/api-design               → Design de APIs
-/tdd-guide                → Test-Driven Development
-/skill-forge              → Criar nova skill
-... e mais 1527 skills!
+Goal → Plan → Execute → Learn → Improve → Final Answer
 ```
 
-### 👥 **12 Squads Coordenados**
-
-Equipes de especialistas para tarefas complexas:
-
-```
-advisory-board, brand-squad, c-level-squad, copy-squad, 
-cybersecurity, data-squad, design-squad, hormozi-squad, 
-movement, storytelling, traffic-masters, ... e mais
-```
-
-### 💾 **Memória Centralizada**
-
-Sistema único de memória compartilhado por todos os projetos:
-
-```python
-from memoria_init import memoria
-
-# SALVAR (SQLite local, instantâneo)
-memoria.save('decisoes', 'dec-001', {
-    'titulo': 'Escolher Next.js',
-    'racional': 'Melhor DX',
-})
-
-# CARREGAR
-dec = memoria.load('decisoes', 'dec-001')
-
-# LISTAR
-todas = memoria.list('decisoes')
-
-# STATS
-stats = memoria.stats()  # Total, Synced, Pendentes
-```
-
-**Características:**
-- ✅ **SQLite Local** — offline-first, instantâneo
-- ⚡ **MongoDB Sync** — automático em background
-- 🔒 **Persistência** — dados compartilhados entre projetos
-- 📊 **35 Repositórios** — como referência
+Sistema modular e escalável que integra:
+- ✅ **Multi-Agent Coordination** — múltiplos agentes especializados
+- ✅ **Autonomous Planning** — decomposição automática de tarefas
+- ✅ **RAG Pipeline** — recuperação de conhecimento em documentos
+- ✅ **Dynamic Tools** — execução de APIs externas e ferramentas
+- ✅ **Reasoning Engine** — CoT (Chain of Thought) / ToT (Tree of Thoughts)
+- ✅ **Self-Improvement** — otimização automática de prompts
+- ✅ **Memory System** — short-term, vector, long-term
+- ✅ **Evaluation Pipeline** — RAGAS, DeepEval, métricas customizadas
+- ✅ **Observability** — Langfuse, telemetry, logs estruturados
 
 ---
 
 ## 🏗️ Arquitetura
 
 ```
-AIOS Framework
-├── agents/              (10 agentes especializados)
-├── core/                (engine central de orquestração)
-├── memory/              (sistema de memória inteligente)
-├── knowledge/           (base de conhecimento)
-├── reasoning/           (engine de raciocínio)
-├── skills/              (1534+ skills)
-├── planning/            (planejamento automático)
-├── evaluation/          (avaliação de performance)
-└── ... (25+ módulos especializados)
+                              USER
+                              │
+                              ▼
+                      Interaction Layer
+            ┌──────────────────────────────┐
+            │ API │ Notebook │ Voice │ CLI │
+            └──────────────────────────────┘
+                              │
+                              ▼
+                    Goal Management Layer
+            ┌────────────────────────────┐
+            │ • Goal Manager             │
+            │ • Autonomous Planner       │
+            │ • Task Decomposer          │
+            └────────────────────────────┘
+                              │
+                              ▼
+                  Multi-Agent Coordination
+          ┌────────────────────────────────┐
+          │ • Agent Router                 │
+          │ • Agent Registry               │
+          │ • Communication Protocol       │
+          └────────────────────────────────┘
+                              │
+                              ▼
+                      Agent Execution Layer
+      ┌──────────────┬──────────────┬──────────────┐
+      ▼              ▼              ▼
+  RAG Agent      Tool Agent    Executor Agent
+      │              │              │
+      ▼              ▼              ▼
+Knowledge         APIs          Skill
+Retrieval      Tool Discovery   Execution
+      │              │              │
+      └───────┬──────┴──────┬───────┘
+              ▼             ▼
+       Reasoning Engine   Skill Selector
+       (CoT / ToT)
+              │
+              ▼
+         Reflection Agent
+              │
+              ▼
+      Self-Improvement Engine
+   (Prompt Optimizer / Failure Analysis)
+              │
+              ▼
+          Memory System
+ ┌──────────┬───────────┬──────────┐
+ ▼          ▼           ▼
+Short-Term  Vector    Long-Term
+Memory      Memory     Memory
+              │
+              ▼
+          World Model
+      (Cognição do Agente)
+              │
+              ▼
+          Learning Loop
+    (Feedback / RL / Experience)
+              │
+              ▼
+        Evaluation Layer
+    (RAGAS / DeepEval / Metrics)
+              │
+              ▼
+      Observability Layer
+    (Langfuse / Logs / Telemetry)
+```
+
+---
+
+## 📦 Componentes Principais
+
+### 🎯 **Goal Management**
+- **Goal Manager** — Define objetivos do usuário
+- **Autonomous Planner** — Planeja estratégia automaticamente
+- **Task Decomposer** — Decompõe em tarefas menores
+
+### 🔀 **Multi-Agent System**
+- **RAG Agent** — Busca conhecimento em vetores/documentos
+- **Tool Agent** — Executa APIs externas e ferramentas dinâmicas
+- **Executor Agent** — Executa skills e computação
+
+### 🧠 **Raciocínio Avançado**
+- **Reasoning Engine** — Chain of Thought (CoT) / Tree of Thoughts (ToT)
+- **Reflection Agent** — Avalia respostas e aplica auto-reflexão
+- **Self-Improvement** — Otimiza prompts e analisa falhas
+
+### 💾 **Memory System**
+- **Short-Term Memory** — Histórico recente de conversas
+- **Vector Memory** — Embeddings semânticos para recuperação
+- **Long-Term Memory** — Perfil persistente e conhecimento
+
+### 🌍 **World Model**
+- Crenças do agente sobre o ambiente
+- Estado atual do sistema
+- Histórico de experiências
+
+### 📊 **Evaluation & Observability**
+- **RAGAS** — Avaliação de RAG
+- **DeepEval** — Avaliação de LLM
+- **Langfuse** — Tracing e observabilidade
+- **Custom Metrics** — Métricas customizadas
+
+### 🏆 **Agent Arena**
+Competição entre agentes para avaliar performance:
+```
+Tasks → Agents Generate Answers → Evaluation → Scoring → Leaderboard
+```
+
+---
+
+## 📁 Estrutura de Diretórios
+
+```
+Agente AIOS/
+├── agents/                  # Definições de agentes
+├── core/                    # Engine central
+├── planning/                # Planejamento autônomo
+├── task_decomposer/         # Decomposição de tarefas
+├── rag/                     # RAG Pipeline
+├── knowledge/               # Base de conhecimento
+├── knowledge_graph/         # Gráfico de conhecimento
+├── memory/                  # Sistemas de memória
+├── reasoning/               # Reasoning engines (CoT/ToT)
+├── reflection/              # Reflection agent
+├── self_improvement/        # Otimização de prompts
+├── learning/                # Learning loop
+├── skills/                  # Skills executáveis
+├── tools/                   # Tool registry
+├── evaluation/              # RAGAS, DeepEval, metrics
+├── arena/                   # Agent Arena
+├── agent_graph/             # Grafo de agentes
+├── cognition/               # Cognição e world model
+├── collaboration/           # Comunicação entre agentes
+├── observability/           # Langfuse, telemetry
+├── guardrails/              # Safety e prompt injection
+├── api/                     # FastAPI endpoints
+├── ingestion/               # Document/video ingestion
+├── infra/                   # Infraestrutura
+└── notebooks/               # Exemplos e testes
 ```
 
 ---
 
 ## 🚀 Como Usar
 
-### 1️⃣ Novo Projeto? (2 Passos)
+### 1️⃣ Instalação
 
 ```bash
-# PASSO 1: Copiar CLAUDE.md
-cp CLAUDE.md seu-novo-projeto/
-
-# PASSO 2: Rodar init-projeto.py
-python init-projeto.py seu-novo-projeto/
-```
-
-**Resultado:** Projeto pronto com memória centralizada ativa! ✅
-
-### 2️⃣ Em Seu Código
-
-```python
-from memoria_init import memoria
-from datetime import datetime
-
-# SALVAR DECISÃO
-memoria.save('decisoes', 'dec-meu-projeto', {
-    'titulo': 'Decisão técnica',
-    'escolha': 'Next.js',
-    'racional': 'Melhor DX',
-    'timestamp': datetime.utcnow().isoformat(),
-})
-
-# USAR AGENTE
-# @dev implemente a feature XYZ
-# Claude Code carrega @dev do AIOS e executa!
-
-# USAR SKILL
-# /security-audit no código
-# Claude Code ativa skill e faz auditoria!
-```
-
-### 3️⃣ Fluxo de Desenvolvimento (Story-Driven)
-
-```
-@sm *create-story 
-    ↓
-@po *validate 
-    ↓
-@dev *develop 
-    ↓
-@qa *qa-gate 
-    ↓
-@devops *push
-```
-
----
-
-## 📊 Fluxo de Dados
-
-```
-Seu Projeto
-    ↓
-from memoria_init import memoria
-    ↓
-memoria.save('decisoes', 'dec-001', {...})
-    ↓
-SQLite Local (AGORA ✅)
-    ↓
-Worker Thread (background)
-    ↓
-MongoDB (a cada 5 min ⚡)
-    ↓
-Outro Projeto
-    ↓
-memoria.load('decisoes', 'dec-001')  ← ✅ ENCONTRA!
-```
-
-**Resultado:** Memória compartilhada entre TODOS os projetos! 🎯
-
----
-
-## 🎓 Documentação
-
-| Arquivo | Descrição |
-|---------|-----------|
-| **DOIS-PASSOS.md** | Como inicializar novo projeto (2 passos!) |
-| **O-QUE-CLAUDE-MD-FAZ.md** | Poder do CLAUDE.md explicado |
-| **COMO_USAR.md** | Guia de referência rápida |
-| **RESUMO-COMPLETO.md** | Documentação detalhada e completa |
-| **MEMORIA-GUIA.md** | Exemplos de uso da memória |
-
----
-
-## ⚙️ Tecnologias
-
-- **Claude API** — Integração com Claude para IA
-- **Python 3.10+** — Linguagem principal
-- **SQLite** — Banco de dados local (memória)
-- **MongoDB** — Cloud sync automático
-- **LangChain/LangGraph** — Orquestração de agentes
-- **FastAPI** — API REST
-- **Pydantic** — Validação de dados
-
----
-
-## 📦 Requisitos
-
-```bash
-Python 3.10+
-pip install -r requirements.txt
-
-Dependências principais:
-- anthropic          (Claude API)
-- langgraph          (Orquestração)
-- pymongo            (MongoDB)
-- pydantic           (Validação)
-- langfuse           (Observabilidade)
-```
-
----
-
-## 🔧 Instalação
-
-```bash
-# Clone o repositório
+# Clone
 git clone https://github.com/Yuri-Fernando/OmniMind_AI_OS.git
 cd OmniMind_AI_OS
 
@@ -248,132 +188,279 @@ pip install -r requirements.txt
 
 # Configure .env
 cp .env.example .env
-# Adicione suas chaves (ANTHROPIC_API_KEY, MONGO_URI, etc)
-
-# Rode um agente
-python main.py
+# Adicione: ANTHROPIC_API_KEY, OPENAI_API_KEY, etc.
 ```
+
+### 2️⃣ Rodar Sistema
+
+```python
+from core.agent_runtime import AgentRuntime
+from planning.autonomous_planner import AutonomousPlanner
+
+# Inicialize runtime
+runtime = AgentRuntime()
+
+# Use planner para resolver tarefa
+planner = AutonomousPlanner(runtime)
+result = await planner.plan("Sua tarefa aqui")
+
+print(result.final_answer)
+```
+
+### 3️⃣ Usar RAG Agent
+
+```python
+from agents.rag_agent import RAGAgent
+
+rag = RAGAgent()
+rag.ingest_documents("docs/")
+answer = await rag.query("Pergunta sobre documentos")
+```
+
+### 4️⃣ Executar Tools
+
+```python
+from agents.tool_agent import ToolAgent
+
+tool_agent = ToolAgent()
+tool_agent.register_tool("web_search", web_search_func)
+result = await tool_agent.execute("Pesquise sobre X")
+```
+
+### 5️⃣ Arena de Agentes
+
+```python
+from arena.arena_runner import ArenaRunner
+
+arena = ArenaRunner()
+results = await arena.run_competition(
+    agents=[agent1, agent2, agent3],
+    tasks=benchmark_tasks
+)
+print(arena.leaderboard())
+```
+
+---
+
+## 🧠 Ciclo de Processamento
+
+```
+User Request
+    │
+    ▼
+Goal Manager (extrai objetivo)
+    │
+    ▼
+Autonomous Planner (cria plano)
+    │
+    ▼
+Task Decomposer (divide em tarefas)
+    │
+    ▼
+Multi-Agent Router (distribui aos agentes)
+    │
+    ├─ RAG Agent (busca documentos)
+    ├─ Tool Agent (chama APIs)
+    └─ Executor Agent (executa skills)
+    │
+    ▼
+Reasoning Engine (pensa: CoT/ToT)
+    │
+    ▼
+Reflection Agent (auto-avalia)
+    │
+    ▼
+Self-Improvement (otimiza prompts)
+    │
+    ▼
+Memory Update (aprende)
+    │
+    ▼
+Evaluation Pipeline (nota resultados)
+    │
+    ▼
+Observability (loga tudo)
+    │
+    ▼
+Final Answer (retorna para usuário)
+```
+
+---
+
+## 🔑 Recursos
+
+### 🎬 Planning Autônomo
+- Decompõe objetivos em tarefas
+- Cria planos hierárquicos
+- Otimiza ordem de execução
+
+### 📚 RAG Inteligente
+- Ingestão de PDFs, textos, vídeos
+- Chunking automático
+- Embeddings com múltiplos modelos
+- Vector store (Chroma/Pinecone)
+
+### 🔧 Tool Ecosystem
+- Registro dinâmico de ferramentas
+- Auto-discovery de APIs
+- Execução paralela
+- Fallback automático
+
+### 🧠 Raciocínio Avançado
+- **CoT** (Chain of Thought) — raciocínio passo-a-passo
+- **ToT** (Tree of Thoughts) — exploração de múltiplos caminhos
+- Pruning inteligente
+
+### 🔄 Auto-Improvement
+- **Prompt Optimizer** — melhora prompts automaticamente
+- **Failure Analysis** — aprende com erros
+- **Reflection** — auto-avalia respostas
+
+### 📊 Evaluation
+- RAGAS para RAG
+- DeepEval para LLM
+- Métricas customizadas
+- Leaderboard automático
+
+### 👁️ Observability
+- Langfuse tracing
+- OpenTelemetry
+- Structured logs
+- Performance metrics
 
 ---
 
 ## 💡 Exemplos
 
-### Exemplo 1: Guardar Decisão Técnica
+### Exemplo 1: Resolver Tarefa Complexa
 
 ```python
-from memoria_init import memoria
+# Sistema planeja automaticamente
+result = await planner.plan(
+    "Pesquise sobre tendências de AI, analise dados e gere relatório"
+)
 
-memoria.save('decisoes', 'dec-auth-2026', {
-    'titulo': 'Estratégia de Autenticação',
-    'opcoes': ['JWT', 'OAuth2', 'Session'],
-    'escolhido': 'JWT + Refresh Token',
-    'racional': ['Stateless', 'Escalável', 'Compatível mobile'],
-})
+# Sistema:
+# 1. Decompõe em tarefas
+# 2. RAG Agent busca documentos
+# 3. Tool Agent pesquisa internet
+# 4. Executor Agent analisa
+# 5. Reflection Agent valida
+# 6. Self-Improvement otimiza
+# 7. Retorna resultado
 ```
 
-### Exemplo 2: Usar Agente Especializado
+### Exemplo 2: Competição de Agentes (Arena)
 
+```python
+# Compare múltiplos agentes
+results = await arena.run_competition(
+    agents=[gpt4_agent, claude_agent, llama_agent],
+    tasks=benchmark_tasks
+)
+
+# Resultado: Leaderboard com scores
 ```
-Você escreve no prompt:
-"@architect revise minha decisão de banco de dados"
 
-Claude Code:
-1. Carrega persona de @architect (Aria) do AIOS
-2. Consulta memória (decisoes passadas)
-3. Dá feedback especializado
-```
+### Exemplo 3: Aprendizado Contínuo
 
-### Exemplo 3: Ativar Skill
-
-```
-Você escreve no prompt:
-"/security-audit no código de pagamento"
-
-Claude Code:
-1. Carrega skill /security-audit
-2. Analisa código
-3. Gera relatório de segurança
+```python
+# Agent aprende com experiências
+for task in task_list:
+    result = await agent.execute(task)
+    feedback = get_user_feedback()
+    
+    # Self-improvement automático
+    await agent.learn_from_experience(result, feedback)
+    
+    # Próximas tarefas serão mais precisas
 ```
 
 ---
 
-## 🔐 Segurança
+## 🛠️ Tecnologias
 
-- ✅ `.env` com credenciais (gitignored)
-- ✅ SQLite local (seu computador)
-- ✅ MongoDB com autenticação
-- ✅ Sem keys hardcoded
-- ✅ Supabase pronto para backup
+- **LLM**: Claude, GPT-4, Llama
+- **Orquestração**: LangChain, LangGraph
+- **Vector DB**: Chroma, Pinecone
+- **API**: FastAPI
+- **Observability**: Langfuse, OpenTelemetry
+- **Evaluation**: RAGAS, DeepEval
+- **Data**: Pandas, Numpy
+- **Async**: AsyncIO, Concurrent.futures
+
+---
+
+## 📚 Documentação
+
+- `architecture_readme.md` — Diagramas de arquitetura
+- `estrutura.md` — Fluxos detalhados
+- `/docs` — Documentação completa
+- `/notebooks` — Exemplos e tutoriais
+
+---
+
+## 🧪 Testes
+
+```bash
+# Rodar testes unitários
+pytest tests/ -v
+
+# Rodar arena (compare agentes)
+python -m arena.arena_runner
+
+# Rodar evaluations
+python -m evaluation.ragas_eval
+```
+
+---
+
+## 🚀 Features
+
+✅ Multi-agent coordination  
+✅ Autonomous planning  
+✅ RAG with knowledge retrieval  
+✅ Dynamic tool execution  
+✅ Advanced reasoning (CoT/ToT)  
+✅ Self-improving prompts  
+✅ Intelligent memory system  
+✅ Evaluation pipeline  
+✅ Agent Arena  
+✅ Enterprise observability  
+✅ Safety & guardrails  
+✅ Learning from feedback  
 
 ---
 
 ## 📈 Roadmap
 
-- [ ] Implementação de Supabase sync
-- [ ] WebUI para visualizar memória
-- [ ] Dashboard de agentes
-- [ ] Exportar relatórios
-- [ ] Integração com git (commits → eventos)
-- [ ] IA baseada em histórico de decisões
-- [ ] Mobile app
-
----
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Por favor:
-
-1. Crie uma issue descrevendo a mudança
-2. Faça um fork do repositório
-3. Crie uma branch: `git checkout -b feature/sua-feature`
-4. Commit: `git commit -m 'feat: descrição'`
-5. Push: `git push origin feature/sua-feature`
-6. Abra um Pull Request
+- [ ] Web UI para visualizar agents
+- [ ] Fine-tuning automático
+- [ ] Distributed execution
+- [ ] Multi-modal models
+- [ ] Persistent knowledge base
+- [ ] Real-time collaboration
 
 ---
 
 ## 📝 Licença
 
-MIT License — veja LICENSE para detalhes
+MIT License
 
 ---
 
-## 🎉 Status
+## 🔗 Links
 
-```
-✅ Sistema operacional completo
-✅ 10 agentes especializados
-✅ 1534+ skills integradas
-✅ 12 squads coordenados
-✅ Memória centralizada (SQLite + MongoDB)
-✅ Documentação completa
-✅ Pronto para produção
-```
+- **GitHub**: https://github.com/Yuri-Fernando/OmniMind_AI_OS
+- **Docs**: `/docs`
+- **Examples**: `/notebooks`
 
 ---
 
-## 🔗 Links Importantes
-
-- **GitHub:** https://github.com/Yuri-Fernando/OmniMind_AI_OS
-- **Documentação:** Veja pasta `/docs`
-- **Exemplos:** Veja pasta `/examples`
-- **Notebooks:** Veja pasta `/notebooks`
+**Built with Claude API & LangGraph**
 
 ---
 
-## 💬 Suporte
-
-Para dúvidas ou sugestões:
-- Abra uma issue no GitHub
-- Consulte a documentação em `/docs`
-- Veja os exemplos em `/examples`
-
----
-
-**Criado com ❤️ usando Claude API e AIOS Framework**
-
----
-
-**Status:** ✅ Production Ready  
-**Última atualização:** 2026-04-02  
-**Versão:** 1.0.0
+**Status**: In Active Development  
+**Version**: 1.0.0  
+**Last Updated**: 2026-04-02

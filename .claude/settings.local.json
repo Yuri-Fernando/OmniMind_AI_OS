@@ -40,7 +40,8 @@
       "Bash(/c/Users/Yuri_/AppData/Local/Programs/Python/Python310/python.exe:*)",
       "Bash(export PYTHONIOENCODING=utf-8)",
       "Bash(mkdir:*)",
-      "Bash(gh auth:*)"
+      "Bash(gh auth:*)",
+      "Bash(grep -v \"^\\\\.$\")"
     ]
   }
 }
