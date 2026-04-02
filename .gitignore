@@ -1,0 +1,79 @@
+# 🔐 Credenciais e Secrets
+.env
+.env.local
+.env.*.local
+credentials.json
+secrets/
+
+# 💾 Banco de Dados
+*.db
+memoria.db
+.sqlite
+
+# 🐍 Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 🔍 IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# 📝 Logs
+*.log
+logs/
+
+# 🧪 Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 📦 Node (se tiver)
+node_modules/
+package-lock.json
+yarn.lock
+
+# 🔧 Cache
+.cache/
+.temp/
+tmp/
+
+# 🚀 Deployment
+dist/
+build/
+
+# 🚫 Arquivos muito grandes (> 100MB - limite GitHub)
+ffmpeg/
+input/ffmpeg.zip
+*.exe
+*.zip
+
+# 📦 Cache e build
+dist/
+build/
+*.egg-info/

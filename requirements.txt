@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+langchain
+langgraph
+openai
+chromadb
+tiktoken
+pypdf
+sentence-transformers
+python-dotenv
+langfuse
+ragas
+deepeval
+whisper
+elevenlabs

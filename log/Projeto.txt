@@ -1,0 +1,167 @@
+🧠 Projeto Inicial
+Assistente Inteligente Multimodal com RAG, Guardrails e Voz
+Um agente de IA capaz de:
+responder perguntas sobre documentos
+conversar por voz
+usar ferramentas
+evitar prompt injection
+avaliar qualidade das respostas
+
+📚 Tecnologias usadas
+Linguagem
+Python
+LLM frameworks
+LangChain
+LangGraph
+LlamaIndex
+
+Modelos
+GPT-4
+Claude
+Llama
+Voz
+STT
+Whisper
+TTS
+ElevenLabs
+
+📂 Estrutura do projeto
+ai-agent-project/
+
+agents/
+   main_agent.py
+   tools.py
+
+rag/
+   embeddings.py
+   retriever.py
+   chunking.py
+
+guardrails/
+   prompt_injection_detector.py
+   content_filter.py
+
+voice/
+   stt_whisper.py
+   tts_elevenlabs.py
+
+evaluation/
+   ragas_eval.py
+   deepeval_tests.py
+
+api/
+   server.py
+
+observability/
+   langfuse_tracing.py
+
+
+🧠 Funcionalidades
+1️⃣ Agente com ferramentas
+
+Exemplo:
+Usuário pergunta:
+"Qual o clima em Campinas?"
+O agente usa API de clima.
+
+2️⃣ Pipeline RAG
+Usuário pergunta:
+"Explique o relatório técnico."
+Fluxo:
+documento → chunking → embeddings → busca → LLM
+
+3️⃣ Guardrails
+
+Proteção contra:
+prompt injection
+jailbreak
+conteúdo sensível
+
+4️⃣ Avaliação automática
+
+Usar:
+Ragas
+DeepEval
+Para medir:
+relevância
+precisão
+groundedness
+
+5️⃣ Observabilidade
+
+Logs com:
+Langfuse
+OpenTelemetry
+
+🎯 Resultado final
+✔ conversa por texto
+✔ conversa por voz
+✔ responde usando documentos
+✔ usa ferramentas
+✔ evita ataques de prompt injection
+✔ mede qualidade das respostas
+
+Essa arquitetura simula o que empresas fazem:
+
+Planner agent → decide o que fazer
+RAG agent → busca conhecimento
+Tool agent → executa APIs
+Memory manager → guarda histórico
+LLM router → escolhe modelo
+
+
+1_setup
+2_load_docs
+3_build_vector_db
+4_create_agents
+5_build_langgraph
+6_run_agent
+7_voice_test
+8_benchmark_models
+
+
+| Parte                   | Dificuldade |
+| ----------------------- | ----------- |
+| RAG                     | 🟢 fácil    |
+| Tools                   | 🟢 fácil    |
+| LangGraph orchestration | 🟡 médio    |
+| Memory                  | 🟡 médio    |
+| Guardrails              | 🟡 médio    |
+| Streaming               | 🟢 fácil    |
+| Benchmark LLM           | 🟢 fácil    |
+| Multi-agent             | 🟡 médio    |
+
+
+User question
+     │
+     ▼
+Planner
+     │
+     ├─ precisa documento? → RAG
+     │
+     ├─ precisa API? → Tool agent
+     │
+     ▼
+Final answer
+
+
+2️⃣ Memory bem feita
+
+Tem 3 níveis:
+
+1️⃣ Short memory
+últimas mensagens
+
+2️⃣ Vector memory
+histórico semântico
+
+3️⃣ Long-term memory
+perfil do usuário
+
+
+AI Agent System
+Um AI Operating System para agentes com:
+multi-agent collaboration
+autonomous planning
+self-healing prompts
+automatic tool discovery
