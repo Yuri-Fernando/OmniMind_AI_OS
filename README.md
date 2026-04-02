@@ -1,68 +1,379 @@
-# OmniMind-_AI_OS
-O AI Agent OS é uma infraestrutura completa de AI como um sistema operacional: pipelines, agentes multimodais, RAG local, integração de memória, roteamento dinâmico de tarefas, observabilidade, aprendizado contínuo… tudo modulável, escalável e pronto pra evoluir com novos agentes e ferramentas.
+# 🤖 Agente AIOS — Sistema de Orquestração de Agentes IA
 
-Além disso, está em desenvolvimento o Jarvis, um módulo de automação cognitiva que integra análise de dados, marketing, pesquisa e execução de tarefas complexas de forma autônoma, permitindo que agentes especializados colaborem e tomem decisões mais inteligentes.
+Sistema completo de orquestração de agentes IA com memória centralizada, integração com Claude API, e arquitetura modular escalável.
 
-O sistema é projetado para rodar com LLMs locais, garantindo privacidade e independência de APIs externas, mas mantém integração opcional com LLMs de nuvem, como GPT, Claude ou Mistral, para casos que exigem maior capacidade.
+---
 
-# Visão Geral
+## 🎯 O Que É AIOS?
 
-O AI Agent OS é uma plataforma de agentes inteligentes multimodais que integra:
-Multi-agent system – colaboração entre agentes especializados
-Autonomous planning – decomposição de tarefas automaticamente
-RAG pipeline – busca de conhecimento em documentos e bases semânticas
-Tool ecosystem – descoberta e execução dinâmica de ferramentas e APIs
-Self-improving prompts – auto-otimização e revisão de prompts
-Observability & Evaluation – métricas de performance, logs e pipelines de avaliação
-Multimodal input/output – suporte a texto, áudio (STT/TTS)
+**AIOS** = **AI Orchestration System** — Uma plataforma que orquestra múltiplos agentes especializados para resolver tarefas complexas de forma colaborativa.
 
-Funciona como um AI Operating System, integrando módulos de cognição, memória, reasoning, execução de skills e feedback contínuo.
+```
+Seu Prompt
+    ↓
+Router (direciona para agentes corretos)
+    ↓
+├─ @dev (implementação de código)
+├─ @qa (testes e qualidade)
+├─ @architect (design de sistema)
+├─ @pm (product management)
+├─ @po (product owner)
+├─ @sm (scrum master)
+├─ @analyst (pesquisa)
+├─ @data-engineer (banco de dados)
+├─ @ux-design-expert (UX/UI)
+└─ @devops (CI/CD, git push)
+    ↓
+Resultado
+```
 
-# Funcionalidades:
-1️⃣ Interação com Usuário
-Entrada: API / Notebook / CLI / Voice interface
-Saída: resposta textual ou por voz (STT/TTS plugável)
-Roteamento inteligente: o Planner Agent decide quais agentes e módulos são acionados
+---
 
-2️⃣ Multi-Agent System (Inicial)
-| Agente                            | Função                                                                          |
-| --------------------------------- | ------------------------------------------------------------------------------- |
-| Planner Agent                     | Planeja tarefas e define fluxo de execução                                      |
-| Executor Agent                    | Executa tarefas complexas e scripts                                             |
-| Tool Agent                        | Executa APIs externas e ferramentas dinâmicas                                   |
-| RAG Agent                         | Busca conhecimento na base semântica e documentos                               |
-| Reflection Agent                  | Avalia respostas, aplica auto-reflexão e otimização de prompts                  |
-| Jarvis Agent (em desenvolvimento) | Automação cognitiva: análise de dados, marketing, pesquisa e execução integrada |
+## ✨ Capacidades Principais
 
-3️⃣ RAG Pipeline
-Document ingestion → Chunking → Embeddings → Vector Store → Retriever → LLM
-Respostas baseadas em PDFs, textos e bases offline
-Suporte a LLMs locais (GPT4All / LlamaCpp)
-Integração opcional com LLMs externos via API
+### 🧠 **10 Agentes Especializados**
 
-4️⃣ Tool Ecosystem
-Registro e carregamento de ferramentas dinâmicas
-Ferramentas exemplo: web_search, file_reader, web_scraper, calculator, code_executor
-Auto Tool Discovery para descobrir novas ferramentas automaticamente
+| Agente | Persona | Especialidade |
+|--------|---------|---------------|
+| **@dev** | Dex | Implementação de código, desenvolvimento |
+| **@qa** | Quinn | Testes, qualidade, QA gate |
+| **@architect** | Aria | Arquitetura de sistema, design técnico |
+| **@pm** | Morgan | Product management, estratégia |
+| **@po** | Pax | Product owner, stories, epics |
+| **@sm** | River | Scrum master, planejamento |
+| **@analyst** | Alex | Pesquisa, análise, investigação |
+| **@data-engineer** | Dara | Banco de dados, schema design |
+| **@ux-design-expert** | Uma | UX/UI design, experiência do usuário |
+| **@devops** | Gage | CI/CD, git operations (EXCLUSIVO) |
 
-5️⃣ Memória Inteligente
-Short Term Memory: histórico de conversas recente
-Vector Memory: histórico semântico e consultas repetidas
-Long Term Memory: perfil de usuário, preferências e conhecimento persistente
+### 🛠️ **1534+ Skills Integradas**
 
-6️⃣ Self-Improvement
-Prompt optimizer: ajusta prompts automaticamente para respostas mais precisas
-Failure analysis: analisa erros e sugere correções
-Self-reflection: agente revisa respostas antes de entregar ao usuário
+Ferramentas especializadas ativadas com `/skill-name`:
 
-7️⃣ Observabilidade
-Logs detalhados e métricas integradas
-Langfuse e OpenTelemetry (placeholders)
-Monitoramento de latência, uso de ferramentas, RAG hits, erros e tokens
+```
+/deep-research            → Pesquisa profunda
+/code-reviewer            → Revisão de código
+/security-audit           → Auditoria de segurança
+/database-designer        → Design de schema
+/api-design               → Design de APIs
+/tdd-guide                → Test-Driven Development
+/skill-forge              → Criar nova skill
+... e mais 1527 skills!
+```
 
-8️⃣ Evaluation & Research Lab
-Ragas / DeepEval para avaliação de respostas de RAG + LLM
-Pipeline de métricas automáticas
-Arena para comparação entre múltiplos agentes e LLMs
-Benchmarking de modelos locais e externos (GPT, Claude, Mistral)
+### 👥 **12 Squads Coordenados**
 
+Equipes de especialistas para tarefas complexas:
+
+```
+advisory-board, brand-squad, c-level-squad, copy-squad, 
+cybersecurity, data-squad, design-squad, hormozi-squad, 
+movement, storytelling, traffic-masters, ... e mais
+```
+
+### 💾 **Memória Centralizada**
+
+Sistema único de memória compartilhado por todos os projetos:
+
+```python
+from memoria_init import memoria
+
+# SALVAR (SQLite local, instantâneo)
+memoria.save('decisoes', 'dec-001', {
+    'titulo': 'Escolher Next.js',
+    'racional': 'Melhor DX',
+})
+
+# CARREGAR
+dec = memoria.load('decisoes', 'dec-001')
+
+# LISTAR
+todas = memoria.list('decisoes')
+
+# STATS
+stats = memoria.stats()  # Total, Synced, Pendentes
+```
+
+**Características:**
+- ✅ **SQLite Local** — offline-first, instantâneo
+- ⚡ **MongoDB Sync** — automático em background
+- 🔒 **Persistência** — dados compartilhados entre projetos
+- 📊 **35 Repositórios** — como referência
+
+---
+
+## 🏗️ Arquitetura
+
+```
+AIOS Framework
+├── agents/              (10 agentes especializados)
+├── core/                (engine central de orquestração)
+├── memory/              (sistema de memória inteligente)
+├── knowledge/           (base de conhecimento)
+├── reasoning/           (engine de raciocínio)
+├── skills/              (1534+ skills)
+├── planning/            (planejamento automático)
+├── evaluation/          (avaliação de performance)
+└── ... (25+ módulos especializados)
+```
+
+---
+
+## 🚀 Como Usar
+
+### 1️⃣ Novo Projeto? (2 Passos)
+
+```bash
+# PASSO 1: Copiar CLAUDE.md
+cp CLAUDE.md seu-novo-projeto/
+
+# PASSO 2: Rodar init-projeto.py
+python init-projeto.py seu-novo-projeto/
+```
+
+**Resultado:** Projeto pronto com memória centralizada ativa! ✅
+
+### 2️⃣ Em Seu Código
+
+```python
+from memoria_init import memoria
+from datetime import datetime
+
+# SALVAR DECISÃO
+memoria.save('decisoes', 'dec-meu-projeto', {
+    'titulo': 'Decisão técnica',
+    'escolha': 'Next.js',
+    'racional': 'Melhor DX',
+    'timestamp': datetime.utcnow().isoformat(),
+})
+
+# USAR AGENTE
+# @dev implemente a feature XYZ
+# Claude Code carrega @dev do AIOS e executa!
+
+# USAR SKILL
+# /security-audit no código
+# Claude Code ativa skill e faz auditoria!
+```
+
+### 3️⃣ Fluxo de Desenvolvimento (Story-Driven)
+
+```
+@sm *create-story 
+    ↓
+@po *validate 
+    ↓
+@dev *develop 
+    ↓
+@qa *qa-gate 
+    ↓
+@devops *push
+```
+
+---
+
+## 📊 Fluxo de Dados
+
+```
+Seu Projeto
+    ↓
+from memoria_init import memoria
+    ↓
+memoria.save('decisoes', 'dec-001', {...})
+    ↓
+SQLite Local (AGORA ✅)
+    ↓
+Worker Thread (background)
+    ↓
+MongoDB (a cada 5 min ⚡)
+    ↓
+Outro Projeto
+    ↓
+memoria.load('decisoes', 'dec-001')  ← ✅ ENCONTRA!
+```
+
+**Resultado:** Memória compartilhada entre TODOS os projetos! 🎯
+
+---
+
+## 🎓 Documentação
+
+| Arquivo | Descrição |
+|---------|-----------|
+| **DOIS-PASSOS.md** | Como inicializar novo projeto (2 passos!) |
+| **O-QUE-CLAUDE-MD-FAZ.md** | Poder do CLAUDE.md explicado |
+| **COMO_USAR.md** | Guia de referência rápida |
+| **RESUMO-COMPLETO.md** | Documentação detalhada e completa |
+| **MEMORIA-GUIA.md** | Exemplos de uso da memória |
+
+---
+
+## ⚙️ Tecnologias
+
+- **Claude API** — Integração com Claude para IA
+- **Python 3.10+** — Linguagem principal
+- **SQLite** — Banco de dados local (memória)
+- **MongoDB** — Cloud sync automático
+- **LangChain/LangGraph** — Orquestração de agentes
+- **FastAPI** — API REST
+- **Pydantic** — Validação de dados
+
+---
+
+## 📦 Requisitos
+
+```bash
+Python 3.10+
+pip install -r requirements.txt
+
+Dependências principais:
+- anthropic          (Claude API)
+- langgraph          (Orquestração)
+- pymongo            (MongoDB)
+- pydantic           (Validação)
+- langfuse           (Observabilidade)
+```
+
+---
+
+## 🔧 Instalação
+
+```bash
+# Clone o repositório
+git clone https://github.com/Yuri-Fernando/OmniMind_AI_OS.git
+cd OmniMind_AI_OS
+
+# Instale dependências
+pip install -r requirements.txt
+
+# Configure .env
+cp .env.example .env
+# Adicione suas chaves (ANTHROPIC_API_KEY, MONGO_URI, etc)
+
+# Rode um agente
+python main.py
+```
+
+---
+
+## 💡 Exemplos
+
+### Exemplo 1: Guardar Decisão Técnica
+
+```python
+from memoria_init import memoria
+
+memoria.save('decisoes', 'dec-auth-2026', {
+    'titulo': 'Estratégia de Autenticação',
+    'opcoes': ['JWT', 'OAuth2', 'Session'],
+    'escolhido': 'JWT + Refresh Token',
+    'racional': ['Stateless', 'Escalável', 'Compatível mobile'],
+})
+```
+
+### Exemplo 2: Usar Agente Especializado
+
+```
+Você escreve no prompt:
+"@architect revise minha decisão de banco de dados"
+
+Claude Code:
+1. Carrega persona de @architect (Aria) do AIOS
+2. Consulta memória (decisoes passadas)
+3. Dá feedback especializado
+```
+
+### Exemplo 3: Ativar Skill
+
+```
+Você escreve no prompt:
+"/security-audit no código de pagamento"
+
+Claude Code:
+1. Carrega skill /security-audit
+2. Analisa código
+3. Gera relatório de segurança
+```
+
+---
+
+## 🔐 Segurança
+
+- ✅ `.env` com credenciais (gitignored)
+- ✅ SQLite local (seu computador)
+- ✅ MongoDB com autenticação
+- ✅ Sem keys hardcoded
+- ✅ Supabase pronto para backup
+
+---
+
+## 📈 Roadmap
+
+- [ ] Implementação de Supabase sync
+- [ ] WebUI para visualizar memória
+- [ ] Dashboard de agentes
+- [ ] Exportar relatórios
+- [ ] Integração com git (commits → eventos)
+- [ ] IA baseada em histórico de decisões
+- [ ] Mobile app
+
+---
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Por favor:
+
+1. Crie uma issue descrevendo a mudança
+2. Faça um fork do repositório
+3. Crie uma branch: `git checkout -b feature/sua-feature`
+4. Commit: `git commit -m 'feat: descrição'`
+5. Push: `git push origin feature/sua-feature`
+6. Abra um Pull Request
+
+---
+
+## 📝 Licença
+
+MIT License — veja LICENSE para detalhes
+
+---
+
+## 🎉 Status
+
+```
+✅ Sistema operacional completo
+✅ 10 agentes especializados
+✅ 1534+ skills integradas
+✅ 12 squads coordenados
+✅ Memória centralizada (SQLite + MongoDB)
+✅ Documentação completa
+✅ Pronto para produção
+```
+
+---
+
+## 🔗 Links Importantes
+
+- **GitHub:** https://github.com/Yuri-Fernando/OmniMind_AI_OS
+- **Documentação:** Veja pasta `/docs`
+- **Exemplos:** Veja pasta `/examples`
+- **Notebooks:** Veja pasta `/notebooks`
+
+---
+
+## 💬 Suporte
+
+Para dúvidas ou sugestões:
+- Abra uma issue no GitHub
+- Consulte a documentação em `/docs`
+- Veja os exemplos em `/examples`
+
+---
+
+**Criado com ❤️ usando Claude API e AIOS Framework**
+
+---
+
+**Status:** ✅ Production Ready  
+**Última atualização:** 2026-04-02  
+**Versão:** 1.0.0
