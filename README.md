@@ -1,10 +1,10 @@
-# 🤖 AI Agent OS — Sistema de Orquestração Inteligente de Agentes
+# AI Agent OS — Sistema de Orquestração Inteligente de Agentes
 
 Um **sistema operacional de IA** completo que orquestra múltiplos agentes para resolução de tarefas complexas com planning automático, RAG, tools dinâmicas, raciocínio avançado, auto-melhoria contínua e observabilidade enterprise.
 
 ---
 
-## 🎯 O Que É
+##  O Que É
 
 **AI Agent OS** é uma plataforma que implementa um ciclo completo:
 
@@ -13,19 +13,19 @@ Goal → Plan → Execute → Learn → Improve → Final Answer
 ```
 
 Sistema modular e escalável que integra:
-- ✅ **Multi-Agent Coordination** — múltiplos agentes especializados
-- ✅ **Autonomous Planning** — decomposição automática de tarefas
-- ✅ **RAG Pipeline** — recuperação de conhecimento em documentos
-- ✅ **Dynamic Tools** — execução de APIs externas e ferramentas
-- ✅ **Reasoning Engine** — CoT (Chain of Thought) / ToT (Tree of Thoughts)
-- ✅ **Self-Improvement** — otimização automática de prompts
-- ✅ **Memory System** — short-term, vector, long-term
-- ✅ **Evaluation Pipeline** — RAGAS, DeepEval, métricas customizadas
-- ✅ **Observability** — Langfuse, telemetry, logs estruturados
+- **Multi-Agent Coordination** — múltiplos agentes especializados
+- **Autonomous Planning** — decomposição automática de tarefas
+- **RAG Pipeline** — recuperação de conhecimento em documentos
+- **Dynamic Tools** — execução de APIs externas e ferramentas
+- **Reasoning Engine** — CoT (Chain of Thought) / ToT (Tree of Thoughts)
+- **Self-Improvement** — otimização automática de prompts
+- **Memory System** — short-term, vector, long-term
+- **Evaluation Pipeline** — RAGAS, DeepEval, métricas customizadas
+- **Observability** — Langfuse, telemetry, logs estruturados
 
 ---
 
-## 🏗️ Arquitetura
+##  Arquitetura
 
 ```
                               USER
@@ -100,40 +100,40 @@ Memory      Memory     Memory
 
 ---
 
-## 📦 Componentes Principais
+## Componentes Principais
 
-### 🎯 **Goal Management**
+### **Goal Management**
 - **Goal Manager** — Define objetivos do usuário
 - **Autonomous Planner** — Planeja estratégia automaticamente
 - **Task Decomposer** — Decompõe em tarefas menores
 
-### 🔀 **Multi-Agent System**
+###  **Multi-Agent System**
 - **RAG Agent** — Busca conhecimento em vetores/documentos
 - **Tool Agent** — Executa APIs externas e ferramentas dinâmicas
 - **Executor Agent** — Executa skills e computação
 
-### 🧠 **Raciocínio Avançado**
+### **Raciocínio Avançado**
 - **Reasoning Engine** — Chain of Thought (CoT) / Tree of Thoughts (ToT)
 - **Reflection Agent** — Avalia respostas e aplica auto-reflexão
 - **Self-Improvement** — Otimiza prompts e analisa falhas
 
-### 💾 **Memory System**
+### **Memory System**
 - **Short-Term Memory** — Histórico recente de conversas
 - **Vector Memory** — Embeddings semânticos para recuperação
 - **Long-Term Memory** — Perfil persistente e conhecimento
 
-### 🌍 **World Model**
+### **World Model**
 - Crenças do agente sobre o ambiente
 - Estado atual do sistema
 - Histórico de experiências
 
-### 📊 **Evaluation & Observability**
+### **Evaluation & Observability**
 - **RAGAS** — Avaliação de RAG
 - **DeepEval** — Avaliação de LLM
 - **Langfuse** — Tracing e observabilidade
 - **Custom Metrics** — Métricas customizadas
 
-### 🏆 **Agent Arena**
+### **Agent Arena**
 Competição entre agentes para avaliar performance:
 ```
 Tasks → Agents Generate Answers → Evaluation → Scoring → Leaderboard
@@ -141,12 +141,12 @@ Tasks → Agents Generate Answers → Evaluation → Scoring → Leaderboard
 
 ---
 
-## 📁 Estrutura de Diretórios
+## Estrutura de Diretórios
 
 ```
 Agente AIOS/
 │
-├── 🎯 CORE ENGINE
+├── CORE ENGINE
 ├── agents/                    # Definições de agentes especializados
 │   ├── main_agent.py          # Agente principal orquestrador
 │   ├── executor_agent.py       # Executa skills e tarefas
@@ -164,7 +164,7 @@ Agente AIOS/
 │   ├── router.py              # Roteamento inteligente
 │   └── config.py              # Configuração central
 │
-├── 🧠 INTELIGÊNCIA & RACIOCÍNIO
+├── INTELIGÊNCIA & RACIOCÍNIO
 ├── planning/                  # Planejamento autônomo
 │   ├── autonomous_planner.py  # Planejar estratégia
 │   ├── goal_manager.py        # Gerenciador de objetivos
@@ -185,7 +185,7 @@ Agente AIOS/
 │   ├── failure_analysis.py    # Análise de falhas
 │   └── self_reflection.py     # Auto-reflexão
 │
-├── 💾 MEMÓRIA & CONHECIMENTO
+├── MEMÓRIA & CONHECIMENTO
 ├── memory/                    # Sistemas de memória multi-tier
 │   ├── short_term_memory.py   # Histórico recente (conversas)
 │   ├── vector_memory.py       # Embeddings semânticos
@@ -239,7 +239,7 @@ Agente AIOS/
 │   ├── search_tool.py
 │   └── weather_tool.py
 │
-├── 🎯 AVALIAÇÃO & APRENDIZADO
+├── AVALIAÇÃO & APRENDIZADO
 ├── evaluation/                # Pipeline de avaliação
 │   ├── ragas_eval.py          # RAGAS (RAG evaluation)
 │   ├── deepeval_tests.py      # DeepEval (LLM evaluation)
@@ -268,7 +268,7 @@ Agente AIOS/
 │   ├── graph_visualizer.py    # Visualizador
 │   └── execution_trace.py     # Rastreamento de execução
 │
-├── 🔐 SEGURANÇA & CONFIABILIDADE
+├── SEGURANÇA & CONFIABILIDADE
 ├── safety/                    # Segurança e guardrails
 │   ├── prompt_injection_guard.py
 │   ├── content_filter.py      # Filtro de conteúdo
@@ -278,20 +278,20 @@ Agente AIOS/
 │   ├── prompt_injection_detector.py
 │   └── content_filter.py
 │
-├── 👥 COLABORAÇÃO & COMUNICAÇÃO
+├── COLABORAÇÃO & COMUNICAÇÃO
 ├── collaboration/             # Multi-agent coordination
 │   ├── multi_agent_router.py  # Roteador
 │   ├── agent_registry.py      # Registro de agentes
 │   └── communication_protocol.py # Protocolo de comun.
 │
-├── 📊 OBSERVABILIDADE & LOGS
+├── OBSERVABILIDADE & LOGS
 ├── observability/             # Observabilidade enterprise
 │   ├── langfuse_tracing.py    # Tracing com Langfuse
 │   ├── telemetry.py           # Telemetria
 │   ├── tracing.py             # Rastreamento
 │   └── logging.py             # Logging estruturado
 │
-├── 📹 PROCESSAMENTO MULTIMODAL
+├── PROCESSAMENTO MULTIMODAL
 ├── ingestion/                 # Ingestão de dados
 │   └── video/                 # Processamento de vídeo
 │       ├── analyze_video.py
@@ -309,7 +309,7 @@ Agente AIOS/
 │   ├── tts_elevenlabs.py      # ElevenLabs TTS
 │   └── tts_local.py           # TTS local
 │
-├── 🌐 API & INFRAESTRUTURA
+├── API & INFRAESTRUTURA
 ├── api/                       # FastAPI endpoints
 │   ├── server.py              # Servidor
 │   └── routes.py              # Rotas
@@ -319,12 +319,12 @@ Agente AIOS/
 │   ├── env_config.py
 │   └── dockerfile             # Containerização
 │
-├── 📚 SIMULAÇÃO & EXPERIMENTAÇÃO
+├── SIMULAÇÃO & EXPERIMENTAÇÃO
 ├── simulation/                # Simulação de ambientes
 │   ├── environment_simulator.py
 │   └── scenario_runner.py     # Executor de cenários
 │
-├── 📓 EXEMPLOS & DOCUMENTAÇÃO
+├── EXEMPLOS & DOCUMENTAÇÃO
 ├── notebooks/                 # Jupyter notebooks
 │   ├── main.ipynb
 │   ├── aios_v3.ipynb
@@ -348,11 +348,11 @@ Agente AIOS/
 │   ├── input.wav
 │   └── temp_audio.wav
 │
-├── 🎬 MULTIMEDIA
+├── MULTIMEDIA
 ├── ffmpeg/                    # FFmpeg binário (processamento de mídia)
 ├── vector_db/                 # Armazenamento de vetores
 │
-├── 📄 DOCUMENTAÇÃO DO PROJETO
+├── DOCUMENTAÇÃO DO PROJETO
 ├── README.md                  # Este arquivo
 ├── architecture_readme.md     # Diagramas de arquitetura
 ├── estrutura.md               # Fluxos detalhados
@@ -364,9 +364,9 @@ Agente AIOS/
 
 ---
 
-## 🚀 Como Usar
+## Como Usar
 
-### 1️⃣ Instalação
+### Instalação
 
 ```bash
 # Clone
@@ -381,7 +381,7 @@ cp .env.example .env
 # Adicione: ANTHROPIC_API_KEY, OPENAI_API_KEY, etc.
 ```
 
-### 2️⃣ Setup e Dependências
+### Setup e Dependências
 
 ```bash
 # Clone o repositório
@@ -404,7 +404,7 @@ cp .env.example .env
 # - MONGODB_URI (se usar sincronização em nuvem)
 ```
 
-### 3️⃣ Rodar Sistema Principal
+### Rodar Sistema Principal
 
 ```python
 from core.agent_runtime import AgentRuntime
@@ -426,7 +426,7 @@ async def main():
 asyncio.run(main())
 ```
 
-### 4️⃣ Usar RAG Agent para Recuperação
+### Usar RAG Agent para Recuperação
 
 ```python
 from agents.rag_agent import RAGAgent
@@ -445,7 +445,7 @@ async def retrieve_knowledge():
 asyncio.run(retrieve_knowledge())
 ```
 
-### 5️⃣ Executar Tool Agent com Ferramentas Dinâmicas
+### Executar Tool Agent com Ferramentas Dinâmicas
 
 ```python
 from agents.tool_agent import ToolAgent
@@ -464,7 +464,7 @@ async def execute_tools():
 asyncio.run(execute_tools())
 ```
 
-### 6️⃣ Competição de Agentes (Arena)
+### Competição de Agentes (Arena)
 
 ```python
 from arena.arena_runner import ArenaRunner
@@ -489,7 +489,7 @@ async def run_arena():
 asyncio.run(run_arena())
 ```
 
-### 7️⃣ Iniciar Interface Web (Streamlit)
+### Iniciar Interface Web (Streamlit)
 
 ```bash
 # Inicie o dashboard visual
@@ -498,7 +498,7 @@ streamlit run ui/dashboard.py
 # Acesse em http://localhost:8501
 ```
 
-### 8️⃣ Usar Voice Interface
+###  Usar Voice Interface
 
 ```python
 from voice.speech_to_text import WhisperSTT
@@ -523,7 +523,7 @@ async def voice_conversation():
 asyncio.run(voice_conversation())
 ```
 
-### 9️⃣ Rodar Avaliação (RAGAS + DeepEval)
+### Rodar Avaliação (RAGAS + DeepEval)
 
 ```python
 from evaluation.ragas_eval import RAGASEvaluator
@@ -549,7 +549,7 @@ async def evaluate():
 asyncio.run(evaluate())
 ```
 
-### 🔟 Treinar e Otimizar (Self-Improvement)
+### Treinar e Otimizar (Self-Improvement)
 
 ```python
 from self_improvement.prompt_optimizer import PromptOptimizer
@@ -578,7 +578,7 @@ asyncio.run(improve())
 
 ---
 
-## 🧠 Ciclo de Processamento
+## Ciclo de Processamento
 
 ```
 User Request
@@ -623,42 +623,42 @@ Final Answer (retorna para usuário)
 
 ---
 
-## 🔑 Recursos
+## Recursos
 
-### 🎬 Planning Autônomo
+### Planning Autônomo
 - Decompõe objetivos em tarefas
 - Cria planos hierárquicos
 - Otimiza ordem de execução
 
-### 📚 RAG Inteligente
+###  RAG Inteligente
 - Ingestão de PDFs, textos, vídeos
 - Chunking automático
 - Embeddings com múltiplos modelos
 - Vector store (Chroma/Pinecone)
 
-### 🔧 Tool Ecosystem
+###  Tool Ecosystem
 - Registro dinâmico de ferramentas
 - Auto-discovery de APIs
 - Execução paralela
 - Fallback automático
 
-### 🧠 Raciocínio Avançado
+###  Raciocínio Avançado
 - **CoT** (Chain of Thought) — raciocínio passo-a-passo
 - **ToT** (Tree of Thoughts) — exploração de múltiplos caminhos
 - Pruning inteligente
 
-### 🔄 Auto-Improvement
+###  Auto-Improvement
 - **Prompt Optimizer** — melhora prompts automaticamente
 - **Failure Analysis** — aprende com erros
 - **Reflection** — auto-avalia respostas
 
-### 📊 Evaluation
+###  Evaluation
 - RAGAS para RAG
 - DeepEval para LLM
 - Métricas customizadas
 - Leaderboard automático
 
-### 👁️ Observability
+###  Observability
 - Langfuse tracing
 - OpenTelemetry
 - Structured logs
@@ -666,7 +666,7 @@ Final Answer (retorna para usuário)
 
 ---
 
-## 💡 Exemplos
+##  Exemplos
 
 ### Exemplo 1: Resolver Tarefa Complexa
 
@@ -714,7 +714,7 @@ for task in task_list:
 
 ---
 
-## 🛠️ Tecnologias
+## Tecnologias
 
 - **LLM**: Claude, GPT-4, Llama
 - **Orquestração**: LangChain, LangGraph
@@ -727,7 +727,7 @@ for task in task_list:
 
 ---
 
-## 📚 Documentação
+##  Documentação
 
 - `architecture_readme.md` — Diagramas de arquitetura
 - `estrutura.md` — Fluxos detalhados
@@ -736,7 +736,7 @@ for task in task_list:
 
 ---
 
-## 🧪 Testes
+##  Testes
 
 ```bash
 # Rodar testes unitários
@@ -751,30 +751,30 @@ python -m evaluation.ragas_eval
 
 ---
 
-## 🚀 Features Implementadas
+##  Features Implementadas
 
-✅ **Multi-agent Coordination** — Roteamento inteligente entre agentes especializados  
-✅ **Autonomous Planning** — Planejamento automático de tarefas complexas  
-✅ **RAG Pipeline** — Recuperação semântica de conhecimento em vetores  
-✅ **Dynamic Tool Execution** — Descoberta e execução automática de ferramentas  
-✅ **Advanced Reasoning** — Chain of Thought (CoT) e Tree of Thoughts (ToT)  
-✅ **Self-Improving Prompts** — Otimização automática de prompts via feedback  
-✅ **Multi-Tier Memory** — Short-term, vector, long-term (SQLite + MongoDB)  
-✅ **Evaluation Pipeline** — RAGAS, DeepEval, métricas customizadas  
-✅ **Agent Arena** — Competição entre agentes com leaderboard  
-✅ **Enterprise Observability** — Langfuse, OpenTelemetry, structured logs  
-✅ **Safety & Guardrails** — Detecção de prompt injection, filtro de conteúdo  
-✅ **Learning from Feedback** — RL, experience buffer, análise de falhas  
-✅ **Voice Interface** — Speech-to-text (Whisper), text-to-speech (ElevenLabs)  
-✅ **Video Processing** — Extração de áudio, análise de vídeo, transcrição  
-✅ **Knowledge Graph** — Grafo semântico com extração de entidades  
-✅ **World Model** — Representação do estado ambiental (belief state)  
+ **Multi-agent Coordination** — Roteamento inteligente entre agentes especializados  
+ **Autonomous Planning** — Planejamento automático de tarefas complexas  
+ **RAG Pipeline** — Recuperação semântica de conhecimento em vetores  
+ **Dynamic Tool Execution** — Descoberta e execução automática de ferramentas  
+ **Advanced Reasoning** — Chain of Thought (CoT) e Tree of Thoughts (ToT)  
+ **Self-Improving Prompts** — Otimização automática de prompts via feedback  
+ **Multi-Tier Memory** — Short-term, vector, long-term (SQLite + MongoDB)  
+ **Evaluation Pipeline** — RAGAS, DeepEval, métricas customizadas  
+ **Agent Arena** — Competição entre agentes com leaderboard  
+ **Enterprise Observability** — Langfuse, OpenTelemetry, structured logs  
+ **Safety & Guardrails** — Detecção de prompt injection, filtro de conteúdo  
+ **Learning from Feedback** — RL, experience buffer, análise de falhas  
+ **Voice Interface** — Speech-to-text (Whisper), text-to-speech (ElevenLabs)  
+ **Video Processing** — Extração de áudio, análise de vídeo, transcrição  
+ **Knowledge Graph** — Grafo semântico com extração de entidades  
+ **World Model** — Representação do estado ambiental (belief state)  
 
 ---
 
-## 📈 Roadmap (Próximos Passos)
+##  Roadmap (Próximos Passos)
 
-### 🎨 **Fase 1: Interface Visual (Sprint 1-2)**
+###  **Fase 1: Interface Visual (Sprint 1-2)**
 - [ ] **Web Dashboard com Streamlit**
   - Visualizador de grafo de agentes em tempo real
   - Monitor de execução com estado dos agentes
@@ -789,7 +789,7 @@ python -m evaluation.ragas_eval
   - `ui/memory_explorer.py` — Explorador de memória
   - `ui/chat_interface.py` — Interface de chat
 
-### 🚀 **Fase 2: Fine-tuning Automático (Sprint 3-4)**
+###  **Fase 2: Fine-tuning Automático (Sprint 3-4)**
 - [ ] **LoRA Fine-tuning**
   - Dataset pipeline para fine-tuning automático
   - Treinamento em background com feedback
@@ -800,7 +800,7 @@ python -m evaluation.ragas_eval
   - A/B testing de prompts
   - Métricas de qualidade por prompt
 
-### 🌐 **Fase 3: Distributed Execution (Sprint 5-6)**
+###  **Fase 3: Distributed Execution (Sprint 5-6)**
 - [ ] **Multi-Machine Orchestration**
   - Executores em máquinas remotas
   - Load balancing entre nós
@@ -811,7 +811,7 @@ python -m evaluation.ragas_eval
   - Auto-scaling de agentes
   - Service mesh integration
 
-### 🎬 **Fase 4: Multi-Modal Enhancement (Sprint 7-8)**
+###  **Fase 4: Multi-Modal Enhancement (Sprint 7-8)**
 - [ ] **Vision Models Integration**
   - Claude Vision para análise de imagens
   - GPT-4V para interpretação visual
@@ -822,7 +822,7 @@ python -m evaluation.ragas_eval
   - Extração de frames-chave
   - Análise de sentimento em vídeos
 
-### 💾 **Fase 5: Persistent Knowledge Base (Sprint 9-10)**
+###  **Fase 5: Persistent Knowledge Base (Sprint 9-10)**
 - [ ] **Graph Database Integration**
   - Neo4j para grafo de conhecimento persistente
   - Query engine otimizado
@@ -833,7 +833,7 @@ python -m evaluation.ragas_eval
   - Validação e versioning de conhecimento
   - Integração com Wikidata
 
-### 👥 **Fase 6: Real-Time Collaboration (Sprint 11-12)**
+###  **Fase 6: Real-Time Collaboration (Sprint 11-12)**
 - [ ] **WebSocket Real-Time**
   - Broadcast de estado entre agentes
   - Colaboração humano-IA em tempo real
@@ -844,7 +844,7 @@ python -m evaluation.ragas_eval
   - Shared memory entre usuários
   - Conflict resolution automática
 
-### 📊 **Fase 7: Advanced Monitoring (Ongoing)**
+###  **Fase 7: Advanced Monitoring (Ongoing)**
 - [ ] **Grafana Dashboards**
   - Métricas de performance por agente
   - Rastreamento de latência
@@ -857,7 +857,7 @@ python -m evaluation.ragas_eval
 
 ---
 
-## 🎨 Interface Visual (Streamlit)
+##  Interface Visual (Streamlit)
 
 ### Setup da Interface
 
@@ -872,32 +872,32 @@ streamlit run ui/dashboard.py
 ### Componentes da UI
 
 ```
-📊 Dashboard Principal (localhost:8501)
-├── 🎯 Overview
+ Dashboard Principal (localhost:8501)
+├──  Overview
 │   ├── Status dos agentes (online/offline)
 │   ├── Tarefas em execução (progress bar)
 │   ├── Métricas chave (tempo médio, taxa sucesso)
 │   └── Últimas decisões
 │
-├── 🕸️ Grafo de Agentes
+├──  Grafo de Agentes
 │   ├── Visualização interativa (Plotly)
 │   ├── Fluxo de dados entre agentes
 │   ├── Estado de cada nó
 │   └── Clique para drill-down
 │
-├── 🏆 Arena Leaderboard
+├──  Arena Leaderboard
 │   ├── Top 5 agentes por score
 │   ├── Histórico de competições
 │   ├── Gráfico de performance
 │   └── Tarefas mais desafiadoras
 │
-├── 💾 Memory Explorer
+├──  Memory Explorer
 │   ├── Busca em memória (CTRL+F)
 │   ├── Timeline de eventos
 │   ├── Grafo de relacionamentos
 │   └── Estatísticas de uso
 │
-└── 💬 Chat Interface
+└──  Chat Interface
     ├── Input do usuário
     ├── Streaming de resposta
     ├── Rastreamento de agentes usados
@@ -930,13 +930,13 @@ with tab3:
 
 ---
 
-## 📝 Licença
+##  Licença
 
 MIT License
 
 ---
 
-## 🔗 Links
+##  Links
 
 - **GitHub**: https://github.com/Yuri-Fernando/OmniMind_AI_OS
 - **Docs**: `/docs`
