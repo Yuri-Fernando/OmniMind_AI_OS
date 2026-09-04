@@ -119,8 +119,9 @@ Memory      Memory     Memory
 
 ### 💾 **Memory System**
 - **Short-Term Memory** — Histórico recente de conversas
-- **Vector Memory** — Embeddings semânticos para recuperação
-- **Long-Term Memory** — Perfil persistente e conhecimento
+- **Vector Memory** — Embeddings semânticos para recuperação (Chroma local; **V2: pgvector**)
+- **Long-Term Memory** — Perfil persistente e conhecimento (JSON local; **V2: MongoDB**)
+- **Knowledge Graph** — Entidades e relações extraídas via LLM (dict em memória; **V2: Neo4j**)
 
 ### 🌍 **World Model**
 - Crenças do agente sobre o ambiente
@@ -927,6 +928,146 @@ with tab2:
 with tab3:
     render_arena_leaderboard(runtime)
 ```
+
+---
+
+## 🛠️ Implementação Faltando (Roadmap de Desenvolvimento)
+
+### **CRÍTICO — Sprint 1 (Semana 1)**
+```
+❌ Tests (testes unitários)
+   └─ tests/
+      ├─ test_agents.py         # Unit tests para agentes
+      ├─ test_rag_pipeline.py   # Tests para RAG
+      ├─ test_planning.py       # Tests para planning
+      ├─ test_tools.py          # Tests para tools
+      ├─ test_memory.py         # Tests para memória
+      └─ conftest.py            # Pytest fixtures
+
+❌ Code Quality
+   └─ Docstrings em:
+      ├─ agents/ (main classes)
+      ├─ core/ (runtime, router)
+      ├─ planning/ (planner, decomposer)
+      └─ rag/ (pipeline, retriever)
+   └─ Type hints:
+      ├─ Memory classes
+      ├─ Tool registry
+      ├─ Agent base classes
+      └─ Utils
+
+❌ Documentation
+   └─ docs/
+      ├─ API.md                 # Endpoints da API
+      ├─ GETTING_STARTED.md     # Quick start
+      ├─ ARCHITECTURE.md        # Design decisions
+      └─ CONTRIBUTING.md        # Como contribuir
+
+❌ Configuration
+   └─ .env.example              # Template de .env
+   └─ setup.sh                  # Script de setup automático
+```
+
+### **IMPORTANTE — Sprint 2 (Semana 2)**
+```
+❌ CI/CD Pipeline
+   └─ .github/workflows/
+      ├─ tests.yml              # Run pytest on PR
+      ├─ lint.yml               # Code quality checks
+      └─ deploy.yml             # Deploy to prod
+
+❌ Examples & Demos
+   └─ examples/
+      ├─ basic_planning.py      # Exemplo básico
+      ├─ rag_query.py           # Exemplo de RAG
+      ├─ multi_agent.py         # Exemplo multi-agente
+      └─ voice_demo.py          # Exemplo de voz
+
+❌ UI Components (Streamlit)
+   └─ ui/
+      ├─ dashboard.py           # Main dashboard
+      ├─ agent_monitor.py       # Monitor de agentes
+      ├─ arena_leaderboard.py   # Leaderboard visual
+      └─ memory_explorer.py     # Explorador de memória
+
+❌ Performance & Optimization
+   └─ Benchmarks para:
+      ├─ RAG retrieval speed
+      ├─ Planning time
+      ├─ Agent latency
+      └─ Memory usage
+```
+
+### **IMPORTANTE — Sprint 3 (Semana 3)**
+```
+❌ Deployment
+   └─ Production-ready setup:
+      ├─ Docker Dockerfile      # Containerização
+      ├─ docker-compose.yml     # Multi-container
+      ├─ K8s manifests          # Kubernetes (opcional)
+      └─ .env.production        # Prod config
+
+❌ Monitoring & Alerting
+   └─ Production observability:
+      ├─ Langfuse integration   # ✅ Tem, precisa config
+      ├─ Grafana dashboards    # Métricas
+      ├─ Alert rules           # Anomalias
+      └─ Health checks         # Liveness probes
+
+❌ Advanced Features
+   └─ Research-grade additions:
+      ├─ Fine-tuning pipeline
+      ├─ Few-shot learning
+      ├─ Multi-modal models
+      └─ Graph database (Neo4j)
+```
+
+### **NICE-TO-HAVE — Sprint 4+ (Bonus)**
+```
+⏳ Web UI (não CLI)
+   └─ React/Next.js frontend para UI
+   
+⏳ Real-time features
+   └─ WebSocket para comunicação em tempo real
+   
+⏳ Mobile app
+   └─ React Native ou Flutter
+   
+⏳ Multi-language support
+   └─ i18n para múltiplos idiomas
+   
+⏳ Advanced analytics
+   └─ Dashboards de BI
+```
+
+---
+
+## 🧬 Memory System V2 — MongoDB + pgvector + Neo4j
+
+A V1 do Memory System roda inteira sobre armazenamento local: `LongTermMemory` grava um
+JSON em disco, `VectorMemory` usa Chroma via SQLite, e o `KnowledgeGraphBuilder` guarda nós
+e arestas em dicionários Python em memória (perdidos ao final do processo). Funciona bem
+para rodar o agente localmente, mas não escala para múltiplas instâncias nem sobrevive fora
+do processo.
+
+A V2 substitui cada um desses três backends por um banco de dados real, **mantendo a mesma
+interface pública** de cada componente — nenhum agente que já consome `MemoryManager`,
+`LongTermMemory`, `VectorMemory` ou `KnowledgeGraphBuilder` precisa mudar:
+
+| Componente | V1 (local) | V2 (banco de dados) | Arquivo V2 |
+|---|---|---|---|
+| Long-Term Memory | JSON em disco | **MongoDB** (upsert por `key`, índice em `category`) | `memory/long_term_memory_mongo_v2.py` |
+| Vector Memory | Chroma (SQLite local) | **Postgres + pgvector** (índice HNSW, cosine) | `memory/vector_memory_pgvector_v2.py` |
+| Knowledge Graph | dict em memória + BFS Python | **Neo4j** (nós/relações reais + `shortestPath` em Cypher) | `knowledge_graph/graph_builder_neo4j_v2.py` |
+| Orquestração | `memory/memory_manager.py` | `memory/memory_manager_v2.py` (mesma API, backends V2) | `memory/memory_manager_v2.py` |
+
+O README já citava `MONGODB_URI` como variável de ambiente opcional ("se usar sincronização
+em nuvem") — a V2 é a implementação que dá efeito real a essa variável, e adiciona
+`POSTGRES_DSN`, `NEO4J_URI`, `NEO4J_USER` e `NEO4J_PASSWORD` para os outros dois backends.
+
+Ver `notebooks/memory_databases_v2.ipynb` para os três backends em uso lado a lado, e
+`requirements_v2.txt` (estende `requirements.txt` com `pymongo`, `psycopg2-binary`,
+`pgvector` e `neo4j`).
 
 ---
 
