@@ -263,6 +263,7 @@ Vector Store
 Document Ingestion
 Retriever
 Knowledge Graph
+GraphRAG (RAG + Knowledge Graph combinados — rag/graph_rag.py)
 ```
 
 ## Tools & Skills
@@ -941,6 +942,33 @@ interface pública** de cada componente — nenhum agente que já consome `Memor
 O README já citava `MONGODB_URI` como variável de ambiente opcional ("se usar sincronização
 em nuvem") — a V2 é a implementação que dá efeito real a essa variável, e adiciona
 `POSTGRES_DSN`, `NEO4J_URI`, `NEO4J_USER` e `NEO4J_PASSWORD` para os outros dois backends.
+
+---
+
+## 🕸️ GraphRAG — composição real de RAG + Knowledge Graph
+
+`rag/` (Chroma + embeddings) e `knowledge_graph/` (extração de
+entidades/relações via LLM + travessia em grafo) já existiam **separados**
+neste projeto. `rag/graph_rag.py` é a composição real dos dois — não os
+dois nomes lado a lado no README: `GraphRAGPipeline.ingest()` indexa o
+mesmo documento nos dois lados ao mesmo tempo, e `GraphRAGPipeline.retrieve()`
+soma busca vetorial (similaridade semântica) com travessia de grafo
+(relações estruturadas) num único contexto para o LLM.
+
+**Por que isso importa:** busca vetorial sozinha falha em perguntas
+**relacionais** ("onde X trabalhou") quando as duas entidades relacionadas
+não são textualmente parecidas — "Marie Curie" e "Sorbonne" não
+compartilham palavras. O grafo tem a aresta `trabalhou_em -> Sorbonne`
+direto. Ver [`rag/GRAPH_RAG.md`](rag/GRAPH_RAG.md) para a arquitetura
+completa e o caso de teste que reproduz exatamente esse cenário.
+
+- `rag/graph_rag.py` — `GraphRAGPipeline` (`ingest`, `retrieve`,
+  `answer_context`, `stats`); `vector_store`/`kg_builder`/`entity_extractor`
+  são todos injetáveis.
+- `rag/tests/test_graph_rag.py` — 5 testes com fakes (sem Chroma, sem LLM
+  rodando), incluindo o caso "vetorial não acha, grafo acha".
+- `notebooks/graph_rag_demo.ipynb` — pipeline real (Chroma + `EntityExtractor`,
+  requer um provedor de LLM configurado — Ollama local por padrão).
 
 Ver `notebooks/memory_databases_v2.ipynb` para os três backends em uso lado a lado, e
 `requirements_v2.txt` (estende `requirements.txt` com `pymongo`, `psycopg2-binary`,
