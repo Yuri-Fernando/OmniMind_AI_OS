@@ -77,3 +77,6 @@ input/ffmpeg.zip
 dist/
 build/
 *.egg-info/
+
+# 🧪 Cache local do DeepEval (telemetria/config da lib, não é código do projeto)
+.deepeval/

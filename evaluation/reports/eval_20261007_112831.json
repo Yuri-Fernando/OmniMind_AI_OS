@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-10-07T11:28:31.676661",
+  "model": "gpt-4o-mini",
+  "openai_key_configured": true,
+  "observability": {
+    "backend": "local_file",
+    "local_trace_count": 32,
+    "local_trace_file": "observability/traces/traces.jsonl",
+    "note": "Langfuse Cloud/self-host não configurado nesta sessão (LANGFUSE_PUBLIC_KEY/SECRET_KEY vazias e self-host via docker-compose não provisionado — ver WORKLOG.md). Traces reais gravados localmente em JSONL como fallback documentado.",
+    "aggregate": {
+      "n_runs": 8,
+      "total_latency_ms": 15646.94,
+      "avg_latency_ms": 1955.87,
+      "total_tokens": 0
+    }
+  },
+  "ragas": {
+    "degraded": true,
+    "n_items": 8,
+    "note": "Ao menos um item não usou o LLM real (sem OPENAI_API_KEY ou erro de rede) — ver 'modes' para detalhe por item. Scores abaixo não devem ser tratados como avaliação de LLM real.",
+    "modes": [
+      "llm_error_fallback_offline",
+      "llm_error_fallback_offline",
+      "llm_error_fallback_offline",
+      "llm_error_fallback_offline",
+      "llm_error_fallback_offline",
+      "llm_error_fallback_offline",
+      "llm_error_fallback_offline",
+      "llm_error_fallback_offline"
+    ],
+    "error": "RAGAS executou as 8 linhas, mas todas as chamadas ao LLM-juiz falharam (ver logs do processo para a exceção real por job — nesta sessão: AuthenticationError 401, OPENAI_API_KEY inválida/expirada). Nenhum score real disponível."
+  },
+  "deepeval": {
+    "items": [
+      {
+        "error": "Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-********************************************************************************************************************************************************RpMA. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}",
+        "mode": "llm_error_fallback_offline"
+      }
+    ]
+  }
+}

@@ -93,8 +93,7 @@ A arquitetura foi desenvolvida para permitir que diferentes agentes especializad
 
 ### Evaluation
 
-- RAGAS;
-- DeepEval;
+- RAGAS e DeepEval reais sobre um golden-set reprodutível (`python -m evaluation.run_all` — ver `evaluation/golden_dataset.py`, `CHANGELOG.md` e `WORKLOG.md`);
 - Métricas customizadas;
 - Benchmark de LLMs;
 - Agent Arena;
@@ -109,7 +108,7 @@ A arquitetura foi desenvolvida para permitir que diferentes agentes especializad
 
 ### Observabilidade
 
-- Langfuse;
+- Langfuse (cloud/self-host real quando configurado; fallback real em arquivo local JSONL documentado em `observability/langfuse_tracing.py` quando não há — ver `WORKLOG.md`);
 - OpenTelemetry;
 - Structured Logs;
 - Telemetry;
