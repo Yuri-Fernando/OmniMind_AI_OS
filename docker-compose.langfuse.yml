@@ -2,9 +2,9 @@
 #
 # STATUS: BLOCKED_BY_CONFIGURATION — este arquivo NÃO foi executado nesta sessão (a stack exige ~4 GB de RAM e
 # segredos próprios). Foi escrito a partir da topologia documentada do Langfuse v3 e precisa ser validado na
-# primeira subida. Nenhum segredo está aqui: tudo vem de `.env.langfuse` (copie `.env.langfuse.example`).
+# primeira subida. Nenhum segredo está aqui: tudo vem de `.env.langfuse` (copie `langfuse.env.example`).
 #
-#   cp .env.langfuse.example .env.langfuse   # e preencha TODOS os valores
+#   cp langfuse.env.example .env.langfuse  # e preencha TODOS os valores
 #   docker compose --env-file .env.langfuse -f docker-compose.langfuse.yml up -d
 #   # abra http://127.0.0.1:3000, crie org/projeto e copie as chaves para LANGFUSE_PUBLIC_KEY/SECRET_KEY/HOST no .env
 #

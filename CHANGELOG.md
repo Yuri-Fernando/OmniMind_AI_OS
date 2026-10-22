@@ -19,7 +19,7 @@ versionamento segue [SemVer](https://semver.org/lang/pt-BR/).
   `evaluation/agent_golden.py` (5 casos positivos, 7 negativos).
 - `observability/agent_tracing.py`: trace do fluxo planner → retriever → tool → LLM → reflection →
   resposta → scores de avaliação; sinks JSONL local e Langfuse (SDK v3); mascara segredos.
-- `docker-compose.langfuse.yml` e `.env.langfuse.example` (stack self-host; **nunca executada**).
+- `docker-compose.langfuse.yml` e `langfuse.env.example` (stack self-host; **nunca executada**).
 - ADR `docs/adr/0003-model-adaptation.md`; 86 testes novos.
 
 ### Fixed / Notes

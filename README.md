@@ -564,7 +564,7 @@ OmniMind_AI_OS/
 ├── api/                  # server, routes
 ├── infra/                # config, env_config, dockerfile
 ├── docs/adr/             # ADR 0001-0003 (software factory, gates, adaptação de modelo)
-├── docker-compose.langfuse.yml, .env.langfuse.example   # stack Langfuse self-host (nunca executada)
+├── docker-compose.langfuse.yml, langfuse.env.example   # stack Langfuse self-host (nunca executada)
 ├── notebooks/, docs/
 ├── architecture_readme.md, estrutura.md
 ├── requirements.txt, requirements_v2.txt
