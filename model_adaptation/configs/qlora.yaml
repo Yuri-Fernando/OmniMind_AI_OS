@@ -1,0 +1,19 @@
+# QLoRA: base congelada em 4-bit NF4 (double quant, compute bf16) + adapter LoRA treinável
+name: qlora
+mode: qlora
+base_model: Qwen/Qwen2.5-0.5B-Instruct
+dtype: bf16
+quantization: 4bit
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+train:
+  epochs: 3
+  batch_size: 8
+  lr: 2.0e-4
+  weight_decay: 0.0
+  max_grad_norm: 1.0
+  max_seq_len: 384
+  gradient_checkpointing: false

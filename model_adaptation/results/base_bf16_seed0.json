@@ -1,0 +1,202 @@
+{
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "environment": {
+    "bitsandbytes": "0.50.2",
+    "cuda": "12.6",
+    "gpu": "NVIDIA GeForce RTX 3060 Ti",
+    "gpu_total_gb": 8.59,
+    "os": "Windows-10-10.0.26300-SP0",
+    "peft": "0.20.0",
+    "python": "3.10.8",
+    "torch": "2.13.0+cu126",
+    "transformers": "5.16.1"
+  },
+  "eval": {
+    "failures_sample": [
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"query\":\"edição genética CRISPR\"},\"tool\":\"web_search\"}",
+        "id": "test-0003",
+        "prompt": "Dá uma olhada na internet: o que há de novo em edição genética CRISPR?",
+        "saida": "{\"tool\": \"web_search\", \"args\": {\"query\": \"CRISPR novo\"}}"
+      },
+      {
+        "erros": [
+          "ferramenta 'web_search' != esperada 'none'"
+        ],
+        "esperado": "{\"args\":{},\"tool\":\"none\"}",
+        "id": "test-0004",
+        "prompt": "Inventa um nome para um gato.",
+        "saida": "{\"tool\": \"web_search\", \"args\": {\"query\": \"gato nome\"}}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"query\":\"satélites Starlink\"},\"tool\":\"web_search\"}",
+        "id": "test-0005",
+        "prompt": "Dá uma olhada na internet: o que há de novo em satélites Starlink?",
+        "saida": "{\"tool\": \"web_search\", \"args\": {\"query\": \"o que há de novo em satélites Starlink\"}}"
+      },
+      {
+        "erros": [
+          "ferramenta 'web_search' != esperada 'file_reader'"
+        ],
+        "esperado": "{\"args\":{\"path\":\"entrada/ata_02.txt\"},\"tool\":\"file_reader\"}",
+        "id": "test-0013",
+        "prompt": "Preciso do texto que está salvo em entrada/ata_02.txt, pode ler?",
+        "saida": "{\"tool\": \"web_search\", \"args\": {\"query\": \"entrada/ata_02.txt\"}}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"path\":\"projetos/alfa/ata_01.md\"},\"tool\":\"file_reader\"}",
+        "id": "test-0021",
+        "prompt": "Mostre o conteúdo do arquivo projetos/alfa/ata_01.md",
+        "saida": "{\"tool\": \"file_reader\", \"args\": {\"path\": \"projeto/alfa/ata_01.md\"}}"
+      },
+      {
+        "erros": [
+          "ferramenta 'web_search' != esperada 'none'"
+        ],
+        "esperado": "{\"args\":{},\"tool\":\"none\"}",
+        "id": "test-0027",
+        "prompt": "Pode me ouvir um instante?",
+        "saida": "{\"tool\": \"web_search\", \"args\": {\"query\": \"instante para você\"}}"
+      },
+      {
+        "erros": [
+          "ferramenta 'web_search' != esperada 'file_reader'"
+        ],
+        "esperado": "{\"args\":{\"path\":\"docs/plano_01.md\"},\"tool\":\"file_reader\"}",
+        "id": "test-0028",
+        "prompt": "O que está escrito em docs/plano_01.md?",
+        "saida": "{\"tool\": \"web_search\", \"args\": {\"query\": \"docs/plano_01.md\"}}"
+      },
+      {
+        "erros": [
+          "ferramenta 'web_search' != esperada 'file_reader'"
+        ],
+        "esperado": "{\"args\":{\"path\":\"docs/plano_01.md\"},\"tool\":\"file_reader\"}",
+        "id": "test-0030",
+        "prompt": "Preciso do texto que está salvo em docs/plano_01.md, pode ler?",
+        "saida": "{\"tool\": \"web_search\", \"args\": {\"query\": \"docs/plano_01.md\"}}"
+      }
+    ],
+    "latency_ms": {
+      "mean": 2592.1,
+      "p50": 2456.6,
+      "p95": 4057.0
+    },
+    "mean_new_tokens": 21.43,
+    "n_test": 114,
+    "quality": {
+      "args_match": 0.7018,
+      "args_valid": 1.0,
+      "correct_call": 0.7018,
+      "grounded": null,
+      "json_strict": 1.0,
+      "json_valid": 1.0,
+      "n": 114,
+      "overall": 0.7018,
+      "result_used": null,
+      "tool_match": 0.8421
+    },
+    "quality_by_template": {
+      "holdout": {
+        "args_match": 0.5294,
+        "args_valid": 1.0,
+        "correct_call": 0.5294,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 34,
+        "overall": 0.5294,
+        "result_used": null,
+        "tool_match": 0.7647
+      },
+      "visto": {
+        "args_match": 0.775,
+        "args_valid": 1.0,
+        "correct_call": 0.775,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 80,
+        "overall": 0.775,
+        "result_used": null,
+        "tool_match": 0.875
+      }
+    },
+    "quality_by_tool": {
+      "calculator": {
+        "args_match": 1.0,
+        "args_valid": 1.0,
+        "correct_call": 1.0,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 30,
+        "overall": 1.0,
+        "result_used": null,
+        "tool_match": 1.0
+      },
+      "file_reader": {
+        "args_match": 0.3333,
+        "args_valid": 1.0,
+        "correct_call": 0.3333,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 24,
+        "overall": 0.3333,
+        "result_used": null,
+        "tool_match": 0.4167
+      },
+      "none": {
+        "args_match": 0.6667,
+        "args_valid": 1.0,
+        "correct_call": 0.6667,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 12,
+        "overall": 0.6667,
+        "result_used": null,
+        "tool_match": 0.6667
+      },
+      "weather_api": {
+        "args_match": 1.0,
+        "args_valid": 1.0,
+        "correct_call": 1.0,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 24,
+        "overall": 1.0,
+        "result_used": null,
+        "tool_match": 1.0
+      },
+      "web_search": {
+        "args_match": 0.4167,
+        "args_valid": 1.0,
+        "correct_call": 0.4167,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 24,
+        "overall": 0.4167,
+        "result_used": null,
+        "tool_match": 1.0
+      }
+    },
+    "tokens_per_s": 8.27
+  },
+  "eval_peak_vram_gb": 1.015,
+  "seed": 0,
+  "status": "COMPLETED",
+  "variant": "base_bf16"
+}

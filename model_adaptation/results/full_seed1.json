@@ -1,0 +1,239 @@
+{
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "environment": {
+    "bitsandbytes": "0.50.2",
+    "cuda": "12.6",
+    "gpu": "NVIDIA GeForce RTX 3060 Ti",
+    "gpu_total_gb": 8.59,
+    "os": "Windows-10-10.0.26300-SP0",
+    "peft": "0.20.0",
+    "python": "3.10.8",
+    "torch": "2.13.0+cu126",
+    "transformers": "5.16.1"
+  },
+  "eval": {
+    "failures_sample": [
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"query\":\"edição genética CRISPR\"},\"tool\":\"web_search\"}",
+        "id": "test-0003",
+        "prompt": "Dá uma olhada na internet: o que há de novo em edição genética CRISPR?",
+        "saida": "{\"args\":{\"query\":\"o que há de novo em edição genética CRISPR\"},\"tool\":\"web_search\"}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"query\":\"satélites Starlink\"},\"tool\":\"web_search\"}",
+        "id": "test-0005",
+        "prompt": "Dá uma olhada na internet: o que há de novo em satélites Starlink?",
+        "saida": "{\"args\":{\"query\":\"o que há de novo em satélites Starlink\"},\"tool\":\"web_search\"}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"city\":\"João Pessoa\"},\"tool\":\"weather_api\"}",
+        "id": "test-0018",
+        "prompt": "Vou viajar para João Pessoa amanhã, como está o clima por lá?",
+        "saida": "{\"args\":{\"city\":\"Joana Pessoa\"},\"tool\":\"weather_api\"}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"query\":\"biocombustíveis\"},\"tool\":\"web_search\"}",
+        "id": "test-0036",
+        "prompt": "Dá uma olhada na internet: o que há de novo em biocombustíveis?",
+        "saida": "{\"args\":{\"query\":\"o que há de novo em biocombustíveis\"},\"tool\":\"web_search\"}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"query\":\"agricultura de precisão\"},\"tool\":\"web_search\"}",
+        "id": "test-0042",
+        "prompt": "Dá uma olhada na internet: o que há de novo em agricultura de precisão?",
+        "saida": "{\"args\":{\"query\":\"o que há de novo em agricultura de precisão\"},\"tool\":\"web_search\"}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"query\":\"metaverso corporativo\"},\"tool\":\"web_search\"}",
+        "id": "test-0062",
+        "prompt": "Dá uma olhada na internet: o que há de novo em metaverso corporativo?",
+        "saida": "{\"args\":{\"query\":\"o que há de novo em metaverso corporativo\"},\"tool\":\"web_search\"}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"query\":\"open finance\"},\"tool\":\"web_search\"}",
+        "id": "test-0066",
+        "prompt": "Dá uma olhada na internet: o que há de novo em open finance?",
+        "saida": "{\"args\":{\"query\":\"o que há de novo em open finance\"},\"tool\":\"web_search\"}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"query\":\"telemedicina\"},\"tool\":\"web_search\"}",
+        "id": "test-0082",
+        "prompt": "Dá uma olhada na internet: o que há de novo em telemedicina?",
+        "saida": "{\"args\":{\"query\":\"o que há de novo em telemedicina\"},\"tool\":\"web_search\"}"
+      }
+    ],
+    "latency_ms": {
+      "mean": 1496.8,
+      "p50": 1395.6,
+      "p95": 2414.7
+    },
+    "mean_new_tokens": 16.86,
+    "n_test": 114,
+    "quality": {
+      "args_match": 0.9211,
+      "args_valid": 1.0,
+      "correct_call": 0.9211,
+      "grounded": null,
+      "json_strict": 1.0,
+      "json_valid": 1.0,
+      "n": 114,
+      "overall": 0.9211,
+      "result_used": null,
+      "tool_match": 1.0
+    },
+    "quality_by_template": {
+      "holdout": {
+        "args_match": 0.7353,
+        "args_valid": 1.0,
+        "correct_call": 0.7353,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 34,
+        "overall": 0.7353,
+        "result_used": null,
+        "tool_match": 1.0
+      },
+      "visto": {
+        "args_match": 1.0,
+        "args_valid": 1.0,
+        "correct_call": 1.0,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 80,
+        "overall": 1.0,
+        "result_used": null,
+        "tool_match": 1.0
+      }
+    },
+    "quality_by_tool": {
+      "calculator": {
+        "args_match": 1.0,
+        "args_valid": 1.0,
+        "correct_call": 1.0,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 30,
+        "overall": 1.0,
+        "result_used": null,
+        "tool_match": 1.0
+      },
+      "file_reader": {
+        "args_match": 1.0,
+        "args_valid": 1.0,
+        "correct_call": 1.0,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 24,
+        "overall": 1.0,
+        "result_used": null,
+        "tool_match": 1.0
+      },
+      "none": {
+        "args_match": 1.0,
+        "args_valid": 1.0,
+        "correct_call": 1.0,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 12,
+        "overall": 1.0,
+        "result_used": null,
+        "tool_match": 1.0
+      },
+      "weather_api": {
+        "args_match": 0.9583,
+        "args_valid": 1.0,
+        "correct_call": 0.9583,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 24,
+        "overall": 0.9583,
+        "result_used": null,
+        "tool_match": 1.0
+      },
+      "web_search": {
+        "args_match": 0.6667,
+        "args_valid": 1.0,
+        "correct_call": 0.6667,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 24,
+        "overall": 0.6667,
+        "result_used": null,
+        "tool_match": 1.0
+      }
+    },
+    "tokens_per_s": 11.26
+  },
+  "eval_peak_vram_gb": 1.016,
+  "seed": 1,
+  "status": "COMPLETED",
+  "train": {
+    "artifact_dir": "D:\\Claude Temp\\staging\\omnimind-adapt\\adapters\\full_seed1",
+    "artifact_size_mb": 988.1,
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "epoch_train_loss": [
+      0.15916,
+      0.00049,
+      0.00033
+    ],
+    "first_steps_loss": [
+      1.8147,
+      1.6568,
+      1.8738
+    ],
+    "last_steps_loss": [
+      0.0003,
+      0.0004,
+      0.0002
+    ],
+    "max_example_tokens": 183,
+    "mem_after_load_gb": 0.996,
+    "mode": "full",
+    "name": "full",
+    "params_total": 494032768,
+    "params_trainable": 494032768,
+    "peak_vram_train_gb": 7.878,
+    "peak_vram_train_reserved_gb": 11.643,
+    "quantization": null,
+    "seed": 1,
+    "status": "COMPLETED",
+    "steps": 174,
+    "train_examples": 460,
+    "train_time_s": 126.04,
+    "trainable_pct": 100.0,
+    "val_examples": 57,
+    "val_loss": 0.00643
+  },
+  "variant": "full"
+}

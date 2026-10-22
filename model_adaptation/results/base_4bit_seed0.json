@@ -1,0 +1,202 @@
+{
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "environment": {
+    "bitsandbytes": "0.50.2",
+    "cuda": "12.6",
+    "gpu": "NVIDIA GeForce RTX 3060 Ti",
+    "gpu_total_gb": 8.59,
+    "os": "Windows-10-10.0.26300-SP0",
+    "peft": "0.20.0",
+    "python": "3.10.8",
+    "torch": "2.13.0+cu126",
+    "transformers": "5.16.1"
+  },
+  "eval": {
+    "failures_sample": [
+      {
+        "erros": [
+          "chamada ausente ou sem campo 'tool'"
+        ],
+        "esperado": "{\"args\":{\"city\":\"Macapá\"},\"tool\":\"weather_api\"}",
+        "id": "test-0000",
+        "prompt": "Qual a previsão do tempo para Macapá hoje?",
+        "saida": "{\"weather_api\": {\"city\": \"Macapá\"}}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"query\":\"edição genética CRISPR\"},\"tool\":\"web_search\"}",
+        "id": "test-0003",
+        "prompt": "Dá uma olhada na internet: o que há de novo em edição genética CRISPR?",
+        "saida": "{\"tool\": \"web_search\", \"args\": {\"query\": \"CRISPR novo conteúdo em edição genética\"}}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"query\":\"satélites Starlink\"},\"tool\":\"web_search\"}",
+        "id": "test-0005",
+        "prompt": "Dá uma olhada na internet: o que há de novo em satélites Starlink?",
+        "saida": "{\"tool\": \"web_search\", \"args\": {\"query\": \"Satelite Starlink novidades e atualizações\"}}"
+      },
+      {
+        "erros": [
+          "chamada ausente ou sem campo 'tool'"
+        ],
+        "esperado": "{\"args\":{\"city\":\"Niterói\"},\"tool\":\"weather_api\"}",
+        "id": "test-0007",
+        "prompt": "Está chovendo em Niterói agora?",
+        "saida": "{\"weather_api\": {\"city\": \"Niterói\"}}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"path\":\"data/resumo_03.csv\"},\"tool\":\"file_reader\"}",
+        "id": "test-0008",
+        "prompt": "O que está escrito em data/resumo_03.csv?",
+        "saida": "{\"tool\": \"file_reader\", \"args\": {\"path\": \"data/estatísticas/data/resumo_03.csv\"}}"
+      },
+      {
+        "erros": [
+          "chamada ausente ou sem campo 'tool'"
+        ],
+        "esperado": "{\"args\":{\"city\":\"Macapá\"},\"tool\":\"weather_api\"}",
+        "id": "test-0010",
+        "prompt": "Vou viajar para Macapá amanhã, como está o clima por lá?",
+        "saida": "{\"weather_api\": {\"city\": \"Macapá\"}}"
+      },
+      {
+        "erros": [
+          "chamada ausente ou sem campo 'tool'"
+        ],
+        "esperado": "{\"args\":{\"city\":\"Rio Branco\"},\"tool\":\"weather_api\"}",
+        "id": "test-0011",
+        "prompt": "Vou viajar para Rio Branco amanhã, como está o clima por lá?",
+        "saida": "{\"weather_api\": {\"city\": \"Rio Branco\"}}"
+      },
+      {
+        "erros": [
+          "chamada ausente ou sem campo 'tool'"
+        ],
+        "esperado": "{\"args\":{\"path\":\"entrada/ata_02.txt\"},\"tool\":\"file_reader\"}",
+        "id": "test-0013",
+        "prompt": "Preciso do texto que está salvo em entrada/ata_02.txt, pode ler?",
+        "saida": "{\"file_reader\": {\"path\": \"entrada/ata_02.txt\"}}"
+      }
+    ],
+    "latency_ms": {
+      "mean": 3356.1,
+      "p50": 3326.4,
+      "p95": 5468.1
+    },
+    "mean_new_tokens": 20.21,
+    "n_test": 114,
+    "quality": {
+      "args_match": 0.4386,
+      "args_valid": 0.6579,
+      "correct_call": 0.4386,
+      "grounded": null,
+      "json_strict": 0.6667,
+      "json_valid": 0.6667,
+      "n": 114,
+      "overall": 0.4386,
+      "result_used": null,
+      "tool_match": 0.5965
+    },
+    "quality_by_template": {
+      "holdout": {
+        "args_match": 0.2941,
+        "args_valid": 0.5588,
+        "correct_call": 0.2941,
+        "grounded": null,
+        "json_strict": 0.5588,
+        "json_valid": 0.5588,
+        "n": 34,
+        "overall": 0.2941,
+        "result_used": null,
+        "tool_match": 0.5294
+      },
+      "visto": {
+        "args_match": 0.5,
+        "args_valid": 0.7,
+        "correct_call": 0.5,
+        "grounded": null,
+        "json_strict": 0.7125,
+        "json_valid": 0.7125,
+        "n": 80,
+        "overall": 0.5,
+        "result_used": null,
+        "tool_match": 0.625
+      }
+    },
+    "quality_by_tool": {
+      "calculator": {
+        "args_match": 1.0,
+        "args_valid": 1.0,
+        "correct_call": 1.0,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 30,
+        "overall": 1.0,
+        "result_used": null,
+        "tool_match": 1.0
+      },
+      "file_reader": {
+        "args_match": 0.0417,
+        "args_valid": 0.5833,
+        "correct_call": 0.0417,
+        "grounded": null,
+        "json_strict": 0.5833,
+        "json_valid": 0.5833,
+        "n": 24,
+        "overall": 0.0417,
+        "result_used": null,
+        "tool_match": 0.3333
+      },
+      "none": {
+        "args_match": 0.8333,
+        "args_valid": 0.9167,
+        "correct_call": 0.8333,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 12,
+        "overall": 0.8333,
+        "result_used": null,
+        "tool_match": 0.8333
+      },
+      "weather_api": {
+        "args_match": 0.0417,
+        "args_valid": 0.0417,
+        "correct_call": 0.0417,
+        "grounded": null,
+        "json_strict": 0.0417,
+        "json_valid": 0.0417,
+        "n": 24,
+        "overall": 0.0417,
+        "result_used": null,
+        "tool_match": 0.0417
+      },
+      "web_search": {
+        "args_match": 0.3333,
+        "args_valid": 0.7917,
+        "correct_call": 0.3333,
+        "grounded": null,
+        "json_strict": 0.7917,
+        "json_valid": 0.7917,
+        "n": 24,
+        "overall": 0.3333,
+        "result_used": null,
+        "tool_match": 0.7917
+      }
+    },
+    "tokens_per_s": 6.02
+  },
+  "eval_peak_vram_gb": 0.482,
+  "seed": 0,
+  "status": "COMPLETED",
+  "variant": "base_4bit"
+}

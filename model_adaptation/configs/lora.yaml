@@ -1,0 +1,18 @@
+# LoRA em bf16 sobre o modelo base (pesos congelados em bf16, adapter treinável em fp32)
+name: lora
+mode: lora
+base_model: Qwen/Qwen2.5-0.5B-Instruct
+dtype: bf16
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+train:
+  epochs: 3
+  batch_size: 8
+  lr: 2.0e-4
+  weight_decay: 0.0
+  max_grad_norm: 1.0
+  max_seq_len: 384
+  gradient_checkpointing: false

@@ -1,0 +1,44 @@
+{
+  "distribution": {
+    "test": {
+      "calculator": 30,
+      "file_reader": 24,
+      "none": 12,
+      "weather_api": 24,
+      "web_search": 24
+    },
+    "train": {
+      "calculator": 120,
+      "file_reader": 100,
+      "none": 40,
+      "weather_api": 100,
+      "web_search": 100
+    },
+    "val": {
+      "calculator": 15,
+      "file_reader": 12,
+      "none": 6,
+      "weather_api": 12,
+      "web_search": 12
+    }
+  },
+  "errors": [],
+  "holdout_template": {
+    "em_test": 34,
+    "em_train_val": 0
+  },
+  "leakage": {
+    "none_prompt": 0,
+    "prompt_exato": 0,
+    "prompt_normalizado": 0,
+    "tool_args": 0
+  },
+  "leakage_detail": [],
+  "ok": true,
+  "seed": 0,
+  "sizes": {
+    "test": 114,
+    "train": 460,
+    "val": 57
+  }
+}

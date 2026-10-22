@@ -1,0 +1,239 @@
+{
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "environment": {
+    "bitsandbytes": "0.50.2",
+    "cuda": "12.6",
+    "gpu": "NVIDIA GeForce RTX 3060 Ti",
+    "gpu_total_gb": 8.59,
+    "os": "Windows-10-10.0.26300-SP0",
+    "peft": "0.20.0",
+    "python": "3.10.8",
+    "torch": "2.13.0+cu126",
+    "transformers": "5.16.1"
+  },
+  "eval": {
+    "failures_sample": [
+      {
+        "erros": [
+          "ferramenta 'none' != esperada 'web_search'"
+        ],
+        "esperado": "{\"args\":{\"query\":\"edição genética CRISPR\"},\"tool\":\"web_search\"}",
+        "id": "test-0003",
+        "prompt": "Dá uma olhada na internet: o que há de novo em edição genética CRISPR?",
+        "saida": "{\"args\":{},\"tool\":\"none\"}"
+      },
+      {
+        "erros": [
+          "ferramenta 'none' != esperada 'web_search'"
+        ],
+        "esperado": "{\"args\":{\"query\":\"satélites Starlink\"},\"tool\":\"web_search\"}",
+        "id": "test-0005",
+        "prompt": "Dá uma olhada na internet: o que há de novo em satélites Starlink?",
+        "saida": "{\"args\":{},\"tool\":\"none\"}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"city\":\"João Pessoa\"},\"tool\":\"weather_api\"}",
+        "id": "test-0018",
+        "prompt": "Vou viajar para João Pessoa amanhã, como está o clima por lá?",
+        "saida": "{\"args\":{\"city\":\"Joana Pessoal\"},\"tool\":\"weather_api\"}"
+      },
+      {
+        "erros": [
+          "ferramenta 'none' != esperada 'web_search'"
+        ],
+        "esperado": "{\"args\":{\"query\":\"biocombustíveis\"},\"tool\":\"web_search\"}",
+        "id": "test-0036",
+        "prompt": "Dá uma olhada na internet: o que há de novo em biocombustíveis?",
+        "saida": "{\"args\":{},\"tool\":\"none\"}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"city\":\"Pelotas\"},\"tool\":\"weather_api\"}",
+        "id": "test-0037",
+        "prompt": "Está chovendo em Pelotas agora?",
+        "saida": "{\"args\":{\"city\":\"Pelutas\"},\"tool\":\"weather_api\"}"
+      },
+      {
+        "erros": [
+          "argumentos diferentes do esperado"
+        ],
+        "esperado": "{\"args\":{\"path\":\"relatorios/relatorio_03.csv\"},\"tool\":\"file_reader\"}",
+        "id": "test-0040",
+        "prompt": "Abra relatorios/relatorio_03.csv e me mostre o conteúdo",
+        "saida": "{\"args\":{\"path\":\"relatorios/relatorios_03.csv\"},\"tool\":\"file_reader\"}"
+      },
+      {
+        "erros": [
+          "ferramenta 'none' != esperada 'web_search'"
+        ],
+        "esperado": "{\"args\":{\"query\":\"agricultura de precisão\"},\"tool\":\"web_search\"}",
+        "id": "test-0042",
+        "prompt": "Dá uma olhada na internet: o que há de novo em agricultura de precisão?",
+        "saida": "{\"args\":{},\"tool\":\"none\"}"
+      },
+      {
+        "erros": [
+          "ferramenta 'none' != esperada 'web_search'"
+        ],
+        "esperado": "{\"args\":{\"query\":\"metaverso corporativo\"},\"tool\":\"web_search\"}",
+        "id": "test-0062",
+        "prompt": "Dá uma olhada na internet: o que há de novo em metaverso corporativo?",
+        "saida": "{\"args\":{},\"tool\":\"none\"}"
+      }
+    ],
+    "latency_ms": {
+      "mean": 3601.4,
+      "p50": 3177.8,
+      "p95": 6609.5
+    },
+    "mean_new_tokens": 16.03,
+    "n_test": 114,
+    "quality": {
+      "args_match": 0.8947,
+      "args_valid": 1.0,
+      "correct_call": 0.8947,
+      "grounded": null,
+      "json_strict": 1.0,
+      "json_valid": 1.0,
+      "n": 114,
+      "overall": 0.8947,
+      "result_used": null,
+      "tool_match": 0.9298
+    },
+    "quality_by_template": {
+      "holdout": {
+        "args_match": 0.7353,
+        "args_valid": 1.0,
+        "correct_call": 0.7353,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 34,
+        "overall": 0.7353,
+        "result_used": null,
+        "tool_match": 0.7647
+      },
+      "visto": {
+        "args_match": 0.9625,
+        "args_valid": 1.0,
+        "correct_call": 0.9625,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 80,
+        "overall": 0.9625,
+        "result_used": null,
+        "tool_match": 1.0
+      }
+    },
+    "quality_by_tool": {
+      "calculator": {
+        "args_match": 1.0,
+        "args_valid": 1.0,
+        "correct_call": 1.0,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 30,
+        "overall": 1.0,
+        "result_used": null,
+        "tool_match": 1.0
+      },
+      "file_reader": {
+        "args_match": 0.9583,
+        "args_valid": 1.0,
+        "correct_call": 0.9583,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 24,
+        "overall": 0.9583,
+        "result_used": null,
+        "tool_match": 1.0
+      },
+      "none": {
+        "args_match": 1.0,
+        "args_valid": 1.0,
+        "correct_call": 1.0,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 12,
+        "overall": 1.0,
+        "result_used": null,
+        "tool_match": 1.0
+      },
+      "weather_api": {
+        "args_match": 0.875,
+        "args_valid": 1.0,
+        "correct_call": 0.875,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 24,
+        "overall": 0.875,
+        "result_used": null,
+        "tool_match": 1.0
+      },
+      "web_search": {
+        "args_match": 0.6667,
+        "args_valid": 1.0,
+        "correct_call": 0.6667,
+        "grounded": null,
+        "json_strict": 1.0,
+        "json_valid": 1.0,
+        "n": 24,
+        "overall": 0.6667,
+        "result_used": null,
+        "tool_match": 0.6667
+      }
+    },
+    "tokens_per_s": 4.45
+  },
+  "eval_peak_vram_gb": 0.545,
+  "seed": 2,
+  "status": "COMPLETED",
+  "train": {
+    "artifact_dir": "D:\\Claude Temp\\staging\\omnimind-adapt\\adapters\\qlora_seed2",
+    "artifact_size_mb": 35.24,
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "epoch_train_loss": [
+      0.07046,
+      0.00082,
+      0.00017
+    ],
+    "first_steps_loss": [
+      1.3118,
+      1.0218,
+      0.3852
+    ],
+    "last_steps_loss": [
+      0.0002,
+      0.0002,
+      0.0001
+    ],
+    "max_example_tokens": 183,
+    "mem_after_load_gb": 0.475,
+    "mode": "qlora",
+    "name": "qlora",
+    "params_total": 323917696,
+    "params_trainable": 8798208,
+    "peak_vram_train_gb": 7.551,
+    "peak_vram_train_reserved_gb": 15.955,
+    "quantization": "4bit",
+    "seed": 2,
+    "status": "COMPLETED",
+    "steps": 174,
+    "train_examples": 460,
+    "train_time_s": 192.15,
+    "trainable_pct": 2.7162,
+    "val_examples": 57,
+    "val_loss": 0.00289
+  },
+  "variant": "qlora"
+}

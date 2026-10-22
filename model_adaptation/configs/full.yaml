@@ -1,0 +1,14 @@
+# Baseline de ajuste fino COMPLETO (todos os parâmetros) em bf16 puro, sem quantização.
+# Pode não caber na GPU de 8 GB — nesse caso o experimento registra status OOM com o pico medido.
+name: full
+mode: full
+base_model: Qwen/Qwen2.5-0.5B-Instruct
+dtype: bf16
+train:
+  epochs: 3
+  batch_size: 8
+  lr: 1.0e-5
+  weight_decay: 0.0
+  max_grad_norm: 1.0
+  max_seq_len: 384
+  gradient_checkpointing: false

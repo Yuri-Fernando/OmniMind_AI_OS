@@ -80,3 +80,9 @@ build/
 
 # 🧪 Cache local do DeepEval (telemetria/config da lib, não é código do projeto)
 .deepeval/
+
+# Langfuse self-host / adaptação de modelo (segredos e pesos nunca vão ao git)
+.env.langfuse
+model_adaptation/**/*.safetensors
+model_adaptation/**/*.bin
+model_adaptation/**/*.pt
