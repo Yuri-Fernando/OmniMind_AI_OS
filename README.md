@@ -2,14 +2,28 @@
 
 ### Python · LangChain · LangGraph · FastAPI · MongoDB · Postgres/pgvector · Neo4j · RAGAS · DeepEval · Langfuse
 
-![versão](https://img.shields.io/badge/vers%C3%A3o-1.0-4a5563)
+![versão](https://img.shields.io/badge/vers%C3%A3o-1.2-4a5563)
 ![python](https://img.shields.io/badge/python-3.10%2B-4a5563)
-![testes](https://img.shields.io/badge/testes-40%2F40-0a8a0a)
+![testes](https://img.shields.io/badge/testes-179%2F179-0a8a0a)
 ![uso](https://img.shields.io/badge/uso-P%26D%20%2F%20portf%C3%B3lio-c8742a)
 
 ## Status
 
-🟢 **Concluído no escopo do núcleo — Versão 1.0 / P&D em Agentic AI**
+🟢 **Concluído no escopo do núcleo — Versão 1.2 / P&D em Agentic AI**
+
+**Novo na v1.1:** módulo [`software_factory/`](software_factory/README.md) — Software Factory SDD:
+brief versionado → spec com R-IDs → DAG de tarefas → implementação em `git worktree` isolado → testes
+por runner externo → revisão independente → PR para revisão humana, com gates G0–G7 determinísticos.
+53 testes próprios (unitários, adversariais e e2e com git/pytest reais), demo ponta a ponta em
+`PR_READY` com 14/14 testes e cobertura de requisitos 1.0.
+
+**Novo na v1.2:** [`model_adaptation/`](model_adaptation/README.md) — experimento **executado** de ajuste
+fino de um modelo pequeno (`Qwen2.5-0.5B-Instruct`) para roteamento de ferramentas: base × LoRA × QLoRA
+(4-bit NF4) × ajuste completo, 3 seeds, com VRAM/tempo/adapter/qualidade/latência medidos; um **harness de
+avaliação único** (`evaluation/harness.py`: juiz, métricas determinísticas, tool-call accuracy, fila de
+avaliação humana, RAGAS/DeepEval quando há chave) e **tracing ponta a ponta** do fluxo do agente
+(`observability/agent_tracing.py`). 86 testes novos. O backend Langfuse real **continua
+`BLOCKED_BY_CONFIGURATION`** (stack self-host escrita, nunca executada).
 
 O núcleo de orquestração (planejamento autônomo, coordenação multiagente, RAG, ferramentas dinâmicas,
 memória, reasoning, reflection, segurança e observabilidade) está implementado e documentado. Na
@@ -28,6 +42,10 @@ em vez de ser escondido ou simulado.
 | Memory V2 (MongoDB + pgvector + Neo4j) | 🟡 Implementado, não validado contra bancos reais nesta sessão | `memory/*_v2.py`, mesma interface da V1 |
 | Evaluation real (RAGAS/DeepEval sobre golden-set) | 🟡 Infra real e testada; scores bloqueados por chave de API expirada | `evaluation/run_all.py`, 35 testes novos, `evaluation/reports/eval_20261007_112831.*` |
 | Observability (tracing) | 🟡 Fallback local real funcionando; Langfuse Cloud/self-host não configurado | `observability/langfuse_tracing.py`, `observability/traces/traces.jsonl` |
+| Software Factory SDD (`software_factory/`) | 🟢 MVP com MockLLM / 🟡 Claude real não executado | 53 testes em `software_factory/tests/`; ADRs `docs/adr/0001` e `0002` |
+| Adaptação de modelo (LoRA / QLoRA / completo) | 🟢 Executado e testado (modelo 0,5B, tarefa sintética, 1 GPU de 8 GB) | `model_adaptation/`, `model_adaptation/results/*.json` + `REPORT.md`, 23 testes, ADR `0003` |
+| Harness de avaliação único (juiz + determinísticas + humano + tool-call accuracy) | 🟢 Implementado e testado / 🟡 RAGAS e DeepEval só rodam com `OPENAI_API_KEY` (senão `NOT_RUN`) | `evaluation/harness.py`, `evaluation/tool_call_accuracy.py`, `evaluation/reports/harness_golden.*`, 63 testes |
+| Tracing do fluxo do agente | 🟢 JSONL local real; sink Langfuse testado só com cliente falso / 🔴 Langfuse real `BLOCKED_BY_CONFIGURATION` | `observability/agent_tracing.py`, `docker-compose.langfuse.yml` (nunca executado), `.env.langfuse.example` |
 
 ---
 
@@ -159,6 +177,7 @@ Goal → Plan → Execute → Learn → Improve → Final Answer
 | `memory/*_v2.py` | Backends V2 (MongoDB, pgvector, Neo4j) atrás da mesma interface da V1 | `notebooks/memory_databases_v2.ipynb` |
 | `evaluation/run_all.py` | Ponto de entrada único: golden-set → RAGAS/DeepEval reais → relatório | `evaluation/tests/` (35 testes) |
 | `observability/langfuse_tracing.py` | Tracing real com fallback local em arquivo | 8 traces reais em `observability/traces/traces.jsonl` |
+| `software_factory/` | Software Factory SDD: gates G0–G7, aprovação por hash, worktree por tarefa, runner externo, rastreabilidade | `software_factory/tests/` (53 testes) |
 
 ## ⚙️ Funcionamento
 
@@ -189,6 +208,20 @@ User Request → Goal Manager → Autonomous Planner → Task Decomposer → Mul
 6. Cada execução é traçada por `observability/langfuse_tracing.py` — Langfuse Cloud/self-host se
    configurado, senão fallback real em `observability/traces/traces.jsonl`.
 7. `evaluation/run_all.py` consolida tudo em `evaluation/reports/eval_<timestamp>.{json,md}`.
+
+### Software Factory SDD (`python -m software_factory`)
+
+```text
+brief + golden tests + repo@SHA
+  → G0 input (hashes, SHA-base) → ASSESSOR (+ scanner de injection) → G1 decisões humanas
+  → SPECIFIER (R-###, Given/When/Then) → G2 origem + MUST→golden test + aprovação por hash
+  → ARCHITECT → PLANNER (DAG) → G3 ciclo/ids/owned_paths/colisão + aprovação por hash
+  → IMPLEMENTER por tarefa em worktree agent/{run}/{T} → G4 allowlist, segredo, sintaxe, comando destrutivo
+  → RUNNER externo (pytest + JUnit) → G5 todos os testes da spec PASS
+  → REVIEWER independente + traceability.csv → G6 → PR_READY (PR simulado, sem merge) → G7 humano
+```
+
+Detalhes, artefatos por estágio e limites em [software_factory/README.md](software_factory/README.md).
 
 ### GraphRAG
 
@@ -277,11 +310,56 @@ corrigir o que aparecer → documentar o que não pôde ser obtido.
 Relatório completo desta execução: [`evaluation/reports/eval_20261007_112831.md`](evaluation/reports/eval_20261007_112831.md)
 e `.json`.
 
+### Adaptação de modelo — roteador de ferramentas (medido, 2026-10-21)
+
+`Qwen2.5-0.5B-Instruct`, tarefa sintética de tool-calling (460 treino / 57 val / 114 teste, zero vazamento
+verificado; 34 pedidos do teste usam uma formulação nunca vista no treino), RTX 3060 Ti 8 GB, 3 seeds
+(média ± desvio). Fonte: [`model_adaptation/results/REPORT.md`](model_adaptation/results/REPORT.md).
+
+| Variante | exact match | formulação nova (holdout) | VRAM de treino (GB) | adapter em disco | parâmetros treináveis | VRAM de inferência (GB) |
+|---|---:|---:|---:|---:|---:|---:|
+| Base (bf16), sem treino | 0,702 | 0,529 | — | — | — | 1,015 |
+| Base (4-bit NF4), sem treino | 0,439 (JSON estrito 0,667) | 0,294 | — | — | — | 0,482 |
+| Ajuste fino completo (bf16) | 0,927 ± 0,004 | 0,755 ± 0,014 | 7,87 (de 8,19) | 988 MB (modelo inteiro) | 100 % | 1,020 |
+| LoRA (r=16, bf16) | 0,947 ± 0,029 | 0,843 ± 0,097 | 6,50 | 35,2 MB | 1,75 % | 1,083 |
+| QLoRA (r=16, base 4-bit NF4) | 0,936 ± 0,030 | 0,833 ± 0,084 | 7,54 | 35,2 MB | 2,72 % | 0,545 |
+
+Leitura honesta (o que os números sustentam e o que não):
+- Os três métodos de treino ficam **muito acima da base** (0,70 → ≈0,93–0,95) e QLoRA recupera a base
+  quantizada, que sozinha cai para 0,44.
+- **Não há diferença estatisticamente distinguível entre LoRA, QLoRA e ajuste completo**: as diferenças
+  (≤ 0,02) estão dentro do desvio entre seeds (≈ 0,03), com 3 seeds e 114 exemplos de teste.
+- Na formulação nunca vista a variância é grande (0,74–0,97 entre seeds); nos erros inspecionados,
+  `web_search` domina: o modelo copia "o que há de novo em" para dentro da query (outros: cidade com
+  grafia distorcida, operando truncado). É um limite de generalização, não resolvido aqui.
+- **QLoRA economizou memória só nos pesos/inferência** (0,48 vs 1,00 GB após carregar; 0,545 vs 1,083 GB na
+  inferência), **não no pico de treino** (7,54 vs 6,50 GB). Não medi a causa; o pico neste regime
+  (batch 8, vocabulário de ~152 mil tokens) provavelmente é dominado por logits/ativações e pelo cast para
+  fp32 de `prepare_model_for_kbit_training`.
+- O ajuste completo coube por pouco (7,87 de 8,19 GB) e só em bf16 puro; o adapter LoRA pesa ~3,6 % do modelo.
+- **Tempos de treino e latências não são comparáveis entre variantes:** a mesma configuração LoRA levou de
+  122 a 414 s entre seeds (a GPU é compartilhada e rodei outras cargas em paralelo), e adapters não mesclados
+  têm custo de inferência próprio. Estão nos JSONs, mas não tiro conclusão de velocidade.
+- Resultado de um modelo, uma tarefa sintética e uma GPU; não generaliza para LLMs maiores ou linguagem aberta.
+
+### Harness de avaliação sobre o golden de agentes (`python -m evaluation.harness`)
+
+12 casos escritos à mão (5 positivos, 7 negativos), juiz determinístico (proxies lexicais):
+todos os 5 positivos completam a tarefa e **todos os 7 negativos são reprovados, cada um pelo motivo
+esperado** (ferramenta errada, argumentos inválidos, argumentos errados, resultado ignorado, resposta não
+ancorada, chamada ausente, alucinação). Relatório: [`evaluation/reports/harness_golden.md`](evaluation/reports/harness_golden.md).
+RAGAS/DeepEval: `NOT_RUN` (sem `OPENAI_API_KEY`).
+
 ### Testes (confirmado nesta revisão)
 
 | Suite | Resultado |
 |---|---|
+| `pytest software_factory/tests evaluation/tests model_adaptation/tests rag/tests` (v1.2, 2026-10-22) | **179/179 passando** — 1046 s (53 + 103 + 23 = 179; suíte completa dos quatro diretórios, `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1`) |
+| `pytest model_adaptation/tests` (v1.2, 2026-10-21) | **23/23 passando** — 49 s |
+| `pytest evaluation/tests rag/tests` (v1.2) | **103/103 passando** — 118 s (63 novos + 35 de avaliação e 5 de GraphRAG pré-existentes, sem regressão) |
 | `pytest evaluation/ rag/tests/` | **40/40 passando** — 70,02s (35 novos de `evaluation/tests/` + 5 pré-existentes de GraphRAG) |
+| `pytest software_factory/tests` (v1.1, 2026-10-20) | **53/53 passando** — 232 s (inclui e2e com git e pytest reais); regressão `evaluation/tests` 35/35 e `rag/tests` 5/5 na mesma revisão |
+| Demo `python -m software_factory demo --auto-approve` | `PR_READY`, 14/14 testes no worktree, requirement_coverage 1.0, trace_coverage 1.0 |
 
 Nenhum teste mocka a lógica de cálculo de métrica ou de agregação — apenas a chamada cara de LLM
 externa é mockada nos testes unitários do pipeline; os testes de integração real (`run_all.py`) usam a
@@ -327,6 +405,14 @@ real com 5 testes; não validado nesta sessão contra instâncias reais dos trê
 (ação do usuário, não bug de código); Langfuse Cloud/self-host documentado como próximo passo, não
 implementado.
 
+**F2.5 — Software Factory SDD** ✅ Concluída (MVP com MockLLM) / 🟡 Parcial (Claude real) — gates
+G0–G7, worktrees, runner externo e rastreabilidade com 53 testes; execução com `ClaudeProvider` real e
+sandbox de SO (container sem rede) ficam para a próxima fase.
+
+**F2.6 — Adaptação de modelo e harness de avaliação** ✅ Concluída (LoRA/QLoRA/completo executados, 3 seeds;
+harness e tracing testados) / 🔴 Langfuse real `BLOCKED_BY_CONFIGURATION` / 🟡 RAGAS e DeepEval sem scores
+(sem chave).
+
 **F3 — Interface Visual, Fine-Tuning, Execução Distribuída, Multimodal, Colaboração, Monitoramento
 Avançado** ⏳ Planejada — ver detalhamento em [🔮 Próximos Passos](#-próximos-passos).
 
@@ -334,6 +420,8 @@ Avançado** ⏳ Planejada — ver detalhamento em [🔮 Próximos Passos](#-pró
 
 | Versão | O que mudou |
 |---|---|
+| v1.2.0 (2026-10-21) | `model_adaptation/` (LoRA/QLoRA/completo executados), harness de avaliação único, tool-call accuracy, juiz plugável, fila de avaliação humana, tracing do fluxo do agente, stack Langfuse self-host (não executada), ADR 0003, 86 testes |
+| v1.1.0 (2026-10-20) | Módulo `software_factory/` (SDD com gates G0–G7, aprovação por hash, worktrees, runner externo, PR simulado), 53 testes, ADRs 0001/0002 |
 | Unreleased | Golden-set reprodutível, pipeline real de RAGAS/DeepEval, fallback de tracing local, `evaluation/run_all.py`, 35 testes novos; 2 bugs reais corrigidos em `run_deepeval`; limitação de chaves de API expiradas documentada |
 | v2 (memory) | Memory System V2: MongoDB + pgvector + Neo4j, mesma interface pública dos backends V1 |
 | v2 (GraphRAG) | Composição real de `rag/` + `knowledge_graph/` em `rag/graph_rag.py`, 5 testes com fakes |
@@ -344,7 +432,24 @@ que rodou de verdade e o que ficou documentado como limitação em cada sessão.
 
 ## 🔮 Próximos Passos
 
-**Concluído nesta sessão:**
+**Concluído na v1.2:**
+- ✅ Ajuste fino executado e medido (base × LoRA × QLoRA × completo, 3 seeds) em `model_adaptation/`.
+- ✅ Harness de avaliação único, tool-call accuracy, juiz plugável e fila de avaliação humana.
+- ✅ Tracing do fluxo do agente (`observability/agent_tracing.py`) com sink JSONL local real.
+
+**Concluído na v1.1:**
+- ✅ Software Factory SDD (`software_factory/`) com 53 testes e demo ponta a ponta.
+
+**Próximos da adaptação de modelo / avaliação:**
+- Repetir o experimento com um modelo maior e uma tarefa não sintética; medir a causa de o pico de VRAM do
+  QLoRA não ficar abaixo do LoRA; medir tempo/latência com a GPU dedicada (hoje compartilhada).
+- Trocar o juiz determinístico (sobreposição lexical) por um juiz semântico quando houver chave de API.
+
+**Próximos da Software Factory:**
+- Rodar o mesmo fluxo com `ClaudeProvider` real (3 execuções independentes, custo e variação medidos).
+- Runner em container sem rede e usuário não root; integração com PR real via GitHub (sem merge automático).
+
+**Concluído em sessão anterior:**
 - ✅ Golden-set reprodutível, pipeline real RAGAS/DeepEval, fallback de tracing local, 35 testes novos,
   2 bugs reais corrigidos em `run_deepeval`.
 
@@ -357,7 +462,7 @@ que rodou de verdade e o que ficou documentado como limitação em cada sessão.
 
 **Próximos técnicos (o que seria feito numa v2 da plataforma):**
 - Dashboard visual completo (Overview, Agent Graph, Arena Leaderboard, Memory Explorer, Chat).
-- Fine-tuning (LoRA), execução distribuída (Kubernetes), colaboração multiusuário (WebSocket).
+- Execução distribuída (Kubernetes), colaboração multiusuário (WebSocket).
 - Monitoramento avançado (Grafana) e remediação automática.
 
 ## ▶️ Como rodar localmente
@@ -398,6 +503,16 @@ Gera `evaluation/reports/eval_<timestamp>.{json,md}`. Com uma `OPENAI_API_KEY` v
 reais de RAGAS/DeepEval; sem uma chave válida, documenta o erro de autenticação como resultado real
 (não simula um score).
 
+### 3b. Software Factory SDD (sem rede e sem chave)
+
+```bash
+python -m pytest -q -p no:cacheprovider software_factory/tests
+python -m software_factory demo --workspace "<pasta fora de Drive/OneDrive>" --auto-approve
+```
+
+Executado nesta revisão: 53/53 e demo em `PR_READY` (Windows, Python 3.10). Fluxo com gates manuais em
+[software_factory/README.md](software_factory/README.md).
+
 ### 4. Memory V2 (opcional, requer bancos reais)
 
 ```bash
@@ -437,14 +552,19 @@ OmniMind_AI_OS/
 ├── knowledge_graph/     # entity_extractor, graph_builder, graph_retriever
 ├── tools/                # tool_registry, web_search, code_executor, etc.
 ├── skills/               # skill_registry, skill_loader, skill_learning
-├── evaluation/           # golden_dataset, ragas_eval, deepeval_tests, run_all.py, tests/, reports/
+├── evaluation/           # golden_dataset, ragas_eval, deepeval_tests, run_all.py, harness.py, tool_call_accuracy.py,
+│                         # llm_judge.py, human_eval.py, agent_golden.py, tests/, reports/
 ├── learning/             # feedback_loop, experience_buffer
 ├── arena/                # arena_runner, agent_arena, leaderboard
 ├── safety/               # prompt_injection_guard, content_filter, policy_engine
-├── observability/        # langfuse_tracing, telemetry, traces/traces.jsonl
+├── observability/        # langfuse_tracing, agent_tracing (v1.2), telemetry, traces/traces.jsonl
+├── model_adaptation/     # LoRA/QLoRA/completo: datasets/, training/, inference/, evaluation/, results/ (v1.2)
+├── software_factory/     # SDD: orchestrator, gates, roles, llm/, samples/, tests/ (v1.1)
 ├── voice/                # speech_to_text, text_to_speech
 ├── api/                  # server, routes
 ├── infra/                # config, env_config, dockerfile
+├── docs/adr/             # ADR 0001-0003 (software factory, gates, adaptação de modelo)
+├── docker-compose.langfuse.yml, .env.langfuse.example   # stack Langfuse self-host (nunca executada)
 ├── notebooks/, docs/
 ├── architecture_readme.md, estrutura.md
 ├── requirements.txt, requirements_v2.txt
@@ -461,6 +581,12 @@ OmniMind_AI_OS/
 | [rag/GRAPH_RAG.md](rag/GRAPH_RAG.md) | Arquitetura do GraphRAG e caso de teste relacional |
 | [CHANGELOG.md](CHANGELOG.md) | Mudanças por versão, formato Keep a Changelog |
 | [WORKLOG.md](WORKLOG.md) | Relato cronológico de cada sessão, com números medidos |
+| [software_factory/README.md](software_factory/README.md) | Software Factory SDD: fluxo, gates, artefatos, como rodar, o que a demo prova |
+| [docs/adr/0001](docs/adr/0001-software-factory-dentro-do-omnimind.md) | Por que a fábrica é módulo do OmniMind e o que reusa |
+| [docs/adr/0002](docs/adr/0002-software-factory-gates-e-isolamento.md) | Gates, isolamento por worktree, runner externo e limites |
+| [docs/adr/0003](docs/adr/0003-model-adaptation.md) | Escolhas e limites da adaptação de modelo (LoRA/QLoRA/completo) |
+| [model_adaptation/README.md](model_adaptation/README.md) | Como rodar o experimento; [REPORT.md](model_adaptation/results/REPORT.md) com a tabela medida |
+| [evaluation/reports/harness_golden.md](evaluation/reports/harness_golden.md) | Relatório do harness sobre o golden de agentes |
 | `docs/` | Documentação técnica adicional |
 | `notebooks/` | Exemplos e experimentos, incluindo `memory_databases_v2.ipynb` |
 
@@ -475,19 +601,33 @@ OmniMind_AI_OS/
 - **Memory V2 não validada em produção:** os backends MongoDB/pgvector/Neo4j foram implementados atrás
   da mesma interface da V1, mas não foram validados nesta sessão contra instâncias reais dos três
   bancos (sem credenciais/infra disponíveis).
-- Dashboard visual completo, fine-tuning automatizado, execução distribuída (Kubernetes), colaboração
-  multiusuário em tempo real e monitoramento avançado (Grafana) permanecem no roadmap — não são
-  apresentados como capacidades concluídas.
+- Dashboard visual completo, execução distribuída (Kubernetes), colaboração multiusuário em tempo real e
+  monitoramento avançado (Grafana) permanecem no roadmap — não são apresentados como capacidades concluídas.
+- **Adaptação de modelo (v1.2):** vale para um modelo de 0,5 B, uma tarefa sintética de roteamento de
+  ferramentas e uma GPU de 8 GB compartilhada; LoRA, QLoRA e ajuste completo não se distinguem (diferença
+  ≤ 0,02, dentro do desvio entre seeds ≈ 0,03). Tempos e latências não são comparáveis entre variantes.
+  O QLoRA economizou memória nos pesos e na inferência, mas não no pico de treino (não medi a causa).
+- **Harness (v1.2):** o juiz padrão é determinístico (sobreposição lexical), não semântico; o juiz Claude é
+  opt-in (`OMNIMIND_ALLOW_CLOUD_JUDGE=1`) e foi testado só com cliente falso. RAGAS/DeepEval ficam
+  `NOT_RUN` sem `OPENAI_API_KEY`.
+- **Tracing (v1.2):** o `trace_run` legado chama `Langfuse.trace()`, que não existe no SDK instalado
+  (v3); foi mantido intacto e o novo `agent_tracing.py` usa a API correta. Langfuse real:
+  `BLOCKED_BY_CONFIGURATION`.
+- **Software Factory:** as respostas do `MockLLM` na demo são fixtures escritas à mão — a demo prova
+  gates, isolamento e verificação, não geração autônoma de código. `ClaudeProvider` foi testado só com
+  cliente falso. Rede no runner é bloqueada em melhor esforço (proxy morto + ambiente sem segredos),
+  não por sandbox de SO; execução de tarefas paralelas é validada mas feita em sequência.
 - `Agent Arena` e a listagem de agentes (`gpt4_agent`, `claude_agent`, `llama_agent`) no exemplo de uso
   são ilustrativos da API; não representam um benchmark já executado contra esses três provedores
   nesta sessão.
 
 ## Status
 
-🟢 **Concluído no escopo do núcleo — Versão 1.0.** Memory V2 e GraphRAG implementados e testados.
-Evaluation e Observability passaram de código nunca executado para infraestrutura real e testada
-(40/40 testes, 8 execuções reais, 24 jobs RAGAS/DeepEval reais) — bloqueada apenas por chave de API
-expirada, uma dependência de configuração externa, não um problema de código.
+🟢 **Concluído no escopo do núcleo — Versão 1.2.** Software Factory SDD com 53 testes e demo em
+`PR_READY` (Claude real ainda não executado); ajuste fino LoRA/QLoRA executado e medido, harness de
+avaliação único e tracing do agente implementados e testados. Memory V2 e GraphRAG implementados e testados.
+RAGAS/DeepEval (scores) e Langfuse real seguem bloqueados por configuração externa (`OPENAI_API_KEY`
+válida e stack self-host), não por problema de código.
 
 ## Contexto / Observações
 
@@ -500,9 +640,15 @@ preenchido com uma estimativa.
 ## 🔗 Projetos Relacionados
 
 Este repositório faz parte do portfólio público de Yuri Fernando Dubbern
-([github.com/Yuri-Fernando](https://github.com/Yuri-Fernando)). Não há dependência de código entre os
-repositórios do portfólio — cada um documenta seu próprio escopo, resultados e limitações de forma
-independente.
+([github.com/Yuri-Fernando](https://github.com/Yuri-Fernando)). Não há dependência de código obrigatória
+entre os repositórios — cada um documenta seu próprio escopo, resultados e limitações.
+
+| Projeto | Relação |
+|---|---|
+| [AegisLLM](https://github.com/Yuri-Fernando/AegisLLM) | Gateway de segurança e governança de IA: o tipo de controle que este runtime de agentes pode consumir |
+| [RealTime-ML-Inference-Lab](https://github.com/Yuri-Fernando/RealTime-ML-Inference-Lab) | Serving de inferência em GPU (batching, quantização): onde um modelo ajustado aqui poderia ser servido |
+| [OCR](https://github.com/Yuri-Fernando/OCR) | Motor documental e de áudio que pode alimentar o RAG deste runtime |
+| [Engineering-CAD-AI](https://github.com/Yuri-Fernando/Engineering-CAD-AI) | Mesmo princípio de plano tipado + aprovação humana aplicado a desenhos CAD |
 
 ## 🤖 Autor
 

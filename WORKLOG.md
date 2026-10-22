@@ -7,6 +7,45 @@ medidos quando houver.
 
 ---
 
+## 2026-10-20 — Software Factory SDD (`software_factory/`, v1.1.0)
+
+**Motivação:** levar o OmniMind de "agentes que planejam" para um ciclo de desenvolvimento de software
+orientado por especificação, em que os gates são código e o PASS vem de um runner externo.
+
+### Decisão de destino
+Módulo de topo dentro do OmniMind (ADR 0001): reusa `safety/prompt_injection_guard.py`,
+`safety/policy_engine.py` e `observability/tracing.py` por import. Não reusa `planning/task_decomposer.py`
+(texto livre, sem DAG tipado) nem `tools/code_executor.py` (`exec()` no processo — exatamente o que a
+fábrica proíbe).
+
+### O que foi implementado
+- Schemas Pydantic, máquina de estados, gates G0–G7, aprovações por hash, budget, papéis LLM com
+  retry limitado, worktrees por tarefa, runner pytest com JUnit, rastreabilidade R-ID→tarefa→commit→teste,
+  PR simulado, CLI e cenário `engineering-intake` com golden tests.
+
+### Achados reais durante o desenvolvimento
+- `git_ops.git()` fazia `.strip()` na saída; o `git status --porcelain` começa com espaço significativo
+  (` M app/main.py`) e o caminho virava `pp/main.py` → falso `DIFF_OUTSIDE_OWNED` e REJECTED. Corrigido
+  para `rstrip()`; coberto pelo e2e.
+- O runner levava 108 s para 14 testes que rodam em ~6 s fora dele: plugins do pytest instalados no
+  Python global (deepeval) eram carregados e tentavam telemetria pelo proxy morto. Com
+  `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1` caiu para 10,8 s — e o processo de verificação ficou mais isolado.
+- No repositório-semente sem a feature, os golden tests falham 10 de 10; com a implementação de
+  referência, 14/14 passam (10 golden + 4 do repo) — prova de que os golden tests têm dente.
+
+### Números medidos
+- `python -m pytest -q software_factory/tests` → **53 passed** (232 s).
+- Regressão: `evaluation/tests` **35 passed**, `rag/tests` **5 passed** (iguais ao baseline medido antes
+  da mudança).
+- Demo `python -m software_factory demo --auto-approve` → `PR_READY`, 14/14 PASS, requirement_coverage
+  1.0, trace_coverage 1.0. Fluxo manual `resolve → approve → resume` entre processos até `COMPLETE`.
+
+### Limitações registradas
+- Rede no runner bloqueada só em melhor esforço (proxy morto + env sem segredos); não é sandbox de SO.
+- `ClaudeProvider` testado só com cliente falso; respostas da demo são fixtures (não é geração por IA).
+
+---
+
 ## 2026-10-07 — Avaliação real e reprodutível (RAGAS/DeepEval/Langfuse)
 
 **Motivação:** item da auditoria de portfólio, seção "Agentic AI / RAG /
@@ -147,3 +186,33 @@ chamada de LLM mockada (retrieval real + fallback de erro real) e a lógica
 de agregação/renderização do relatório de `run_all.py`. Nenhum teste mocka
 a lógica de cálculo de métrica ou de agregação — só a chamada cara de LLM
 externa, como combinado.
+
+---
+
+## 2026-10-21 — OmniMind V2: adaptação de modelo, harness de avaliação e tracing do agente
+
+**Pedido:** fechar as lacunas de Hugging Face/PEFT/LoRA/QLoRA, avaliação unificada (juiz, humano, tool-call
+accuracy) e Langfuse, sem criar repositório novo.
+
+**Já existia e foi reaproveitado:** `evaluation/` (RAGAS, DeepEval, golden, métricas) e
+`observability/langfuse_tracing.py` (fallback JSONL).
+
+**Feito e executado**
+- Ambiente verificado antes de qualquer suposição: torch 2.13+cu126, transformers 5.16.1, peft 0.20.0,
+  bitsandbytes 0.50.2, RTX 3060 Ti 8 GB; `trl` e `vllm` ausentes (não instalados).
+- Modelo baixado para o cache `Q:\Hugginface` (≈1 GB). Dataset gerado e validado: 460/57/114, vazamento 0.
+- Experimento: base bf16 e 4-bit, LoRA, QLoRA e ajuste completo; LoRA/QLoRA/completo × 3 seeds. O ajuste completo
+  coube em bf16 puro (7,87 de 8,19 GB). Resultados e leitura honesta no README e em `model_adaptation/results/`.
+- Harness, tool-call accuracy, juiz, fila humana e golden com casos negativos; tracing com spans por etapa.
+
+**Problemas reais**
+- O processo do experimento morreu na troca de sessão no meio do seed 1 e foi relançado só para o que faltava.
+- Um teste meu falhou por premissa errada (resposta com números sem o contexto da pergunta não é "ancorada"); a
+  métrica estava certa, corrigi o teste.
+- `.env.langfuse` não estava no `.gitignore` apesar do comentário que eu escrevi — corrigido.
+- `trace_run` antigo usa `Langfuse.trace()`, inexistente no SDK 3.12.1 (descoberto; legado intocado).
+
+**Não feito:** Langfuse real (stack self-host escrita, não executada); RAGAS/DeepEval com scores (sem chave);
+juiz Claude real (só cliente falso); merge do adapter e quantização de serving (fica para o RealTime-ML).
+
+**Testes:** `model_adaptation/tests` 23 passed; `evaluation/tests` + `rag/tests` 103 passed (inclui os 40 anteriores).
